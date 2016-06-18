@@ -1,0 +1,362 @@
+.navbar .navbar-collapse.collapse, .navbar .navbar-collapse.in {
+    display:block !important;
+    margin-top:15px;
+    padding-top:10px;
+    }
+    .navbar-collapse ul li
+    {
+      width: 100px;
+
+    }
+ul.nav
+{
+  position: relative;
+}
+
+
+.navbar-collapse ul li.active {
+   
+}
+   
+
+    
+ 
+ 
+    
+  @media (max-width:991px) {
+  
+  .navbar-collapse ul li a {
+    margin-right:0;
+    margin-left:15px;
+    font-size:13px;
+    }
+  .navbar-collapse ul {
+    margin-left:0;
+    }
+  }
+  @media (max-width:767px) {
+
+  .navbar-static-top {
+    display:block;
+    }
+  header .navbar-header {
+    display:block;
+    }
+  .navbar-nav {
+    margin-top:0px !important;
+    margin-bottom:0px;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    }
+  .navbar-toggle {
+    margin-top:5px;
+    margin-right:0;
+    padding-top:14px;
+    padding-bottom:14px;
+    }
+  .navbar .navbar-collapse {
+    vertical-align:inherit;
+    padding-bottom:0;
+    }
+  .navbar-collapse ul li {
+    text-align:left;
+    }
+  .navbar-collapse ul li a {
+    display:block;
+    margin:0;
+    padding:10px 0;
+    border-bottom:1px solid rgba(0,0,0,.1);
+    font-size:18px;
+    line-height:1.4em;
+    }
+   .navbar-collapse ul li.active span  {
+  position: static;
+
+  }
+    .navbar-collapse ul li.active {
+}
+  .navbar-collapse ul li:last-child a {
+    border-bottom-width:0;
+    }
+  }
+body
+{
+    background-image: image-url("background2.jpg");    
+}
+@media (min-width: 768px) { 
+header .container {
+  z-index:1;
+  position:relative;
+  }
+.container .container {
+  width:100%;
+  }
+.topper {
+  background:#60b044;
+  position:fixed;
+  height:4px;
+  width:100%;
+  z-index:1000;
+  }
+
+
+
+  .navbar-collapse ul li a {
+    margin-right:0;
+    margin-left:15px;
+    font-size:13px;
+    }
+  .navbar-collapse ul {
+    margin-left:0;
+    }
+      .navbar-static-top {
+    display:block;
+    }
+  header .navbar-header {
+    display:block;
+    }
+  .navbar-nav {
+    margin-top:0px !important;
+    margin-bottom:0px;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    }
+  .navbar-toggle {
+    margin-top:5px;
+    margin-right:0;
+    padding-top:14px;
+    padding-bottom:14px;
+    }
+  .navbar .navbar-collapse {
+    vertical-align:inherit;
+    padding-bottom:0;
+    }
+  .navbar-collapse ul li {
+    text-align:left;
+    }
+  .navbar-collapse ul li a {
+    display:block;
+    margin:0;
+    padding:10px 0;
+    border-bottom:1px solid rgba(0,0,0,.1);
+    font-size:18px;
+    line-height:1.4em;
+    }
+   .navbar-collapse ul li.active span  {
+  position: static;
+
+  }
+    .navbar-collapse ul li.active {
+}
+  .navbar-collapse ul li:last-child a {
+    border-bottom-width:0;
+    }
+
+#arrow
+{
+	background-color:#60b044;
+	color: rgb(255, 255, 255);
+	display: block;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	height: 0px;
+	margin : 0px; 
+	padding-right: 9px;
+	position: absolute;
+	top:-25px;
+	left: 12px;
+	text-align: center;
+	padding-top: 0px;
+	width: 85px;
+	z-index: 1;
+ 
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 25px solid transparent;
+    border-top: 25px solid #60b044; // larger pixel values make the arrow more pointy
+  }
+}
+	header .navbar-brand {
+  background: image-url("bg_logo_oval_white.png") no-repeat;
+	  position:absolute;
+	  z-index:1;
+	  top:-60px;
+	  display:block;
+	  padding:0;
+	  width:218px;
+	  height:125px;
+	  }
+    header .brand-name:hover
+    {
+    text-decoration:none;
+    }
+    header .brand-name:focus {
+    text-decoration:none;
+    }
+
+	  header .brand-name {
+	   z-index:10;
+	   color: #003366;
+	   display:block;
+	   padding:0;
+	   margin:5px 0px 0px 190px;
+	   position:absolute;
+	   font-size:38px;
+	  }
+
+	.logo-block {
+	  background: image-url("rsz_edunova_small.png") no-repeat 0 0;
+	  display:block;
+	  width:140px;
+	  height:83px;
+	  margin:62px 101px 25px 57px;
+	  }
+
+	.logo {
+	  display:block;
+	  visibility:hidden;
+	  }
+
+	header {
+	  margin:0;
+	  padding:0;
+	  border:0;
+	  font-size:100%;
+	  font:inherit;
+	  vertical-align:baseline;
+	  display:block;
+	  background-color: white;
+
+	}
+
+
+}
+
+
+/* =Nav
+----------------------------------------------- */
+.navbar-static-top {
+  display:block;
+  width:100%;
+  margin-bottom:0!important;
+  min-height:60px;
+  }
+header .navbar-header {
+  display:table-cell;
+  float:none;
+  vertical-align:middle;
+  }
+.navbar-toggle {
+  /* background-color:#333; */
+  }
+.navbar-toggle .icon-bar {
+  background-color:#003366;
+  }
+.navbar-collapse {
+  padding-left:0;
+  padding-right:0;
+  max-height:none;
+  }
+.navbar .navbar-collapse {
+  margin-bottom:0!important;
+  }
+.navbar-collapse ul li {
+  font-size:13px;
+  color:#999;
+  }
+.navbar-collapse ul li a {
+  font-size:18px;
+  padding:0;
+  margin-left:10px;
+  color:#506582;
+  font-weight:300;
+  text-align:left;
+
+  }
+.navbar-collapse .cart-count {
+  font-size:13px;
+  margin-left:2px;
+  color:#999;
+  font-weight:normal;
+  }
+.navbar-collapse ul li.active a {
+  font-weight:bold;
+font-size: 18px;
+
+  }
+
+  .navbar-collapse ul li.active {
+font-weight:bold;
+
+  }
+ .navbar-collapse ul li.active {
+
+
+  }
+ul.nav {
+  font-family:adelle-sans,sans-serif;
+  line-height:1.4em;
+  }
+.nav li a {
+  display:inline;
+  }
+.navbar-collapse ul li a:hover {
+  background-color:transparent;
+  color:#003366;
+  text-decoration:underline;
+  }
+.navbar-collapse ul li.active a:hover {
+  color:#003366;
+  text-decoration:none;
+  cursor:default;
+  }
+
+@media (max-width:520px) {
+
+  header .container {
+    padding-left:12px;
+    padding-right:12px;
+    }
+  header .navbar-brand {
+    background-image:none;
+    top:10px;
+    width:200px;
+    height:50px;
+    }
+  header .logo-block {
+    background-image:  image-url("rsz_edunova_small.png");
+    background-size:200px 50px;
+    width:200px;
+    height:50px;
+    margin:4px 0 0 0;
+    }
+  .navbar-nav {
+    margin-top:0 !important;
+    }
+  .navbar-static-top {
+    min-height:60px;
+    }
+  .navbar-toggle {
+    margin-top:17px;
+    }
+  }
+  @media only print {
+  .navbar-nav, #cj_test_banner, .navbar-header:before, .navbar-header:after, .navbar:before, .navbar:after, .navbar-collapse:before, .navbar-collapse:after, .container:before, .container:after {
+    display:none;
+    content:none;
+    }
+  a[href]:after {
+    content:none;
+    }
+  .container {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    width:100%;
+    min-width:7in;
+    }
+  }
