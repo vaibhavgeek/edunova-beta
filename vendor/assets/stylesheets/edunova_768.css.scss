@@ -1,0 +1,166 @@
+   
+  @media (min-width:768px) {
+header .container {
+  z-index:1;
+  position:relative;
+  }
+.container .container {
+  width:100%;
+  }
+.topper {
+  background:#60b044;
+  position:fixed;
+  height:2px;
+  width:100%;
+  z-index:1000;
+  }
+
+  .navbar-collapse ul li a {
+    margin-right:0;
+    margin-left:15px;
+    font-size:13px;
+    }
+  .navbar-collapse ul {
+    margin-left:0;
+    }
+      .navbar-static-top {
+    display:block;
+    }
+  header .navbar-header {
+    display:block;
+    }
+  .navbar-nav {
+    margin-top:0px !important;
+    margin-bottom:0px;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    }
+  .navbar-toggle {
+    margin-top:5px;
+    margin-right:0;
+    padding-top:14px;
+    padding-bottom:14px;
+    }
+  .navbar .navbar-collapse {
+    vertical-align:inherit;
+    padding-bottom:0;
+    }
+  .navbar-collapse ul li {
+    text-align:left;
+    }
+  .navbar-collapse ul li a {
+    display:block;
+    margin:0;
+    padding:10px 0;
+    font-size:18px;
+    line-height:1.4em;
+    }
+   .navbar-collapse ul li.active span  {
+  position: static;
+
+  }
+    .navbar-collapse ul li.active {
+}
+  .navbar-collapse ul li:last-child a {
+    border-bottom-width:0;
+    }
+
+#arrow
+{
+  background-color:#60b044;
+  color: rgb(255, 255, 255);
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  height: 0px;
+  margin : 0px; 
+  padding-right: 9px;
+  position: absolute;
+  top:-25px;
+  left: 12px;
+  text-align: center;
+  padding-top: 0px;
+  width: 85px;
+  z-index: 1;
+ 
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 22px solid transparent;
+    border-top: 20px solid #60b044; // larger pixel values make the arrow more pointy
+  }
+}
+ header .navbar-brand {
+  background: image-url("bg_logo_oval_white.png") no-repeat;
+    position:absolute;
+    z-index:1;
+    top:-60px;
+    display:block;
+    padding:0;
+    width:218px;
+    height:125px;
+    }
+    header .brand-name:hover
+    {
+    text-decoration:none;
+    }
+    header .brand-name:focus {
+    text-decoration:none;
+    }
+
+   header .brand-name
+  {
+    z-index:10;
+color: #003366;
+display:none !important;
+  padding:0;
+  margin:5px 0px 0px 190px;
+  position:absolute;
+  font-size:38px;
+  }
+
+
+  .logo-block {
+    background: image-url("rsz_edunova_small.png") no-repeat 0 0;
+    display:block;
+    width:140px;
+    height:83px;
+    margin:62px 101px 25px 57px;
+    }
+
+  .logo {
+    display:block;
+    visibility:hidden;
+    }
+
+  header {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    font:inherit;
+    vertical-align:baseline;
+    display:block;
+    background-color: white;
+
+  }
+
+.navbar .navbar-collapse.collapse, .navbar .navbar-collapse.in {
+    display:block !important;
+    margin-top:15px;
+    padding-top:10px;
+    }
+    .navbar-collapse ul li
+    {
+      width: 100px;
+
+    }
+ul.nav
+{
+  position: relative;
+}
+
+  }
