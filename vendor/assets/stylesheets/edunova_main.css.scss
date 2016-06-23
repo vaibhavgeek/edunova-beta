@@ -14,12 +14,7 @@ ul.nav
 }
 
 
-.navbar-collapse ul li.active {
-   
-}
-   
-
-    
+  
  
  
     
@@ -65,7 +60,6 @@ ul.nav
     display:block;
     margin:0;
     padding:10px 0;
-    border-bottom:1px solid rgba(0,0,0,.1);
     font-size:18px;
     line-height:1.4em;
     }
@@ -94,7 +88,7 @@ header .container {
 .topper {
   background:#60b044;
   position:fixed;
-  height:4px;
+  height:2px;
   width:100%;
   z-index:1000;
   }
@@ -138,7 +132,6 @@ header .container {
     display:block;
     margin:0;
     padding:10px 0;
-    border-bottom:1px solid rgba(0,0,0,.1);
     font-size:18px;
     line-height:1.4em;
     }
@@ -176,8 +169,8 @@ header .container {
     position: absolute;
     top: 100%;
     left: 0;
-    border: 25px solid transparent;
-    border-top: 25px solid #60b044; // larger pixel values make the arrow more pointy
+    border: 22px solid transparent;
+    border-top: 20px solid #60b044; // larger pixel values make the arrow more pointy
   }
 }
 	header .navbar-brand {
