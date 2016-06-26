@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
 
+# This is used for OmniAuth along with devise
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'oauth2'
+gem 'omniauth-google-oauth2'
 # Used for auth
 gem 'devise'
+# this is used for having amazing fonts 
+gem "font-awesome-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record

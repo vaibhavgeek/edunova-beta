@@ -4,9 +4,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "edunova_main.css.scss";
-@import "bootstrap-theme.css";
-
-
+@import "font-awesome";
+@import "btn-social";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -21,4 +20,6 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap-theme
+ *= require btn-social
  */

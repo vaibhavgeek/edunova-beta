@@ -4,22 +4,19 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # Devise will use the `secret_key_base` as its `secret_key`
+  # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'e0a136396ccca4e4bddcaa281677465f04c5dd8058821f9b64353bb33c458370d149042d1f57aab86239e1ab3e2c356d98cb5223a5e5aa0f60159688c70bbe3a'
+  # config.secret_key = '26e6a18c83c731282fadcdf376230657928e40016c05cd4ae64d84bf06822ba5c6fdfd70137855affaf9ec47801588f51acb857c28de322c189f33d9c6a1b5a6'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fdaf48c228843ce815ae523db2b876018d4a0b19111052b601c45f86b88f9b06b8522fa'
+  config.mailer_sender = 'aish.96jain@gmail.com'
+config.secret_key = '6cba3c175bc496f02e118798e0d6dd4d974c602c695a1d99cf945913a4d1f79a765fefcbe90f04ae89c5553e2bbdc2817eb4e6a3af81e717637feda229ebba63'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
-
-  # Configure the parent class responsible to send e-mails.
-  # config.parent_mailer = 'ActionMailer::Base'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -92,21 +89,18 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
   # config.clean_up_csrf_token_on_authentication = true
 
   # ==> Configuration for :database_authenticatable
-  # For bcrypt, this is the cost for hashing the password and defaults to 11. If
-  # using other algorithms, it sets how many times you want the password to be hashed.
+  # For bcrypt, this is the cost for hashing the password and defaults to 10. If
+  # using other encryptors, it sets how many times you want the password re-encrypted.
   #
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments. Note that, for bcrypt (the default
-  # algorithm), the cost increases exponentially with the number of stretches (e.g.
+  # encryptor), the cost increases exponentially with the number of stretches (e.g.
   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
-  config.stretches = Rails.env.test? ? 1 : 11
+  config.stretches = Rails.env.test? ? 1 : 10
 
-  # Set up a pepper to generate the hashed password.
-  # config.pepper = '3be689180875c8929072f909ab1b92c5ee35c90d78c5aa13cd058c30004d4a76d78ca1b63e9004cc1b324347d4399523d92bec0eb984d4729f7f185e2a4d1d0e'
-
-  # Send a notification email when the user's password is changed
-  # config.send_password_change_notification = false
+  # Setup a pepper to generate the encrypted password.
+  # config.pepper = '678ff583822ef4d3fbb4710140d58ee3a4e3e0bbc59b555575e34e7ed59ffa5957fc4bb18263e355dc75802c228bef396f49885f20e36eae71c6b7eb2d900fde'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -114,7 +108,7 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+   config.allow_unconfirmed_access_for = 6.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -128,7 +122,7 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
@@ -149,17 +143,20 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 8..72
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  config.email_regexp = /\A[^@]+@[^@]+\z/
+  # config.email_regexp = /\A[^@]+@[^@]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
   # config.timeout_in = 30.minutes
+
+  # If true, expires auth token on session timeout.
+  # config.expire_auth_token_on_timeout = false
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
@@ -202,11 +199,11 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
   # config.sign_in_after_reset_password = true
 
   # ==> Configuration for :encryptable
-  # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
-  # You can use :sha1, :sha512 or algorithms from others authentication tools as
-  # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to 20
-  # for default behavior) and :restful_authentication_sha1 (then you should set
-  # stretches to 10, and copy REST_AUTH_SITE_KEY to pepper).
+  # Allow you to use another encryption algorithm besides bcrypt (default). You can use
+  # :sha1, :sha512 or encryptors from others authentication tools as :clearance_sha1,
+  # :authlogic_sha512 (then you should set stretches above to 20 for default behavior)
+  # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
+  # REST_AUTH_SITE_KEY to pepper).
   #
   # Require the `devise-encryptable` gem when using anything other than bcrypt
   # config.encryptor = :sha512
@@ -237,12 +234,14 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+config.omniauth :google_oauth2,'228518371217-kntsfcvbic4lrb4g2lj3ti018d9g77dd.apps.googleusercontent.com' , 'g3ezIKxhSpj5QIKKkP4c-rhq', {access_type: "offline", :scope => 'userinfo.email,userinfo.profile' , :image_size => '170' , skip_jwt: true , provider_ignores_state: true }
+config.omniauth :facebook, "843622779026346", "20123d9594640cc880e57eaddc5f7833" , scope: "email"                                                                                                                                              
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -252,7 +251,9 @@ config.secret_key = 'f4200c3ae8c0070e9be1dc15ddb5eacd98e408f09bfbaa4825c708a52fd
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
-
+config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.

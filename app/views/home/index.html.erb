@@ -1,7 +1,52 @@
-<div class="col-md-4 panel"> 
-Helllow World
+<% if !current_user %>
+<div class="col-md-4">
+<div class="account-wall panel">
+
+ <h1 class="text-center login-title">Sign in to continue to Edunova</h1>
+<%= form_for resource,   as: resource_name , url: session_path(resource_name) , html: { class: "form-signin" }  do |f| %>
+ <%= render "devise/shared/links" %>
+
+<% if alert %>
+<br/>
+<p class="alert alert-danger">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+
+  <%= alert %></p>
+<% end %>
+    <%= f.email_field :email, autofocus: true , :class =>'form-control' , :placeholder => 'Email or Username '%>
+
+    <%= f.password_field :password, autocomplete: "off" ,  :class =>'form-control' , :placeholder => 'Password' %>
+  
+
+
+
+    <%= f.submit "Log in" ,  :class =>'btn btn-lg btn-primary btn-block' %>
+<% if devise_mapping.rememberable? -%>
+                <label class="checkbox pull-left">
+
+      <%= f.check_box :remember_me %>
+       Remember me
+    </label>
+      <% end -%>
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "Forgot password?", new_password_path(resource_name) , :class => "pull-right need-help" %><span class="clearfix"></span> 
+<% end -%>
+<% end %>
+
+ <form class="form-signin">
+            <%= link_to "Sign Up Via Email", new_user_registration_path ,:class => 'btn btn-block btn-success'  %>
+            
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) , :class => 'pull-right need-help' %><span class="clearfix"></span>
+<% end -%>
+            </form>
+
+</div>
+</div>
+<% end %>
+<div class=" <%= current_user ? 'col-md-12' : 'col-md-8' %> ">
+<div class="panel"> 
+Hello
 </div>
 
-<div class="col-md-8 panel">
-Load content here
 </div>

@@ -44,7 +44,7 @@
 
   <li id="profile_nav" class="<%= 'active'  if current_page?(profile_path(current_user)) %>">
     <div id="<%= 'arrow' if current_page?(profile_path(current_user)) %>"> </div>
-    <%= link_to "Profile" , profile_path(11) %></li>
+    <%= link_to "Profile" , profile_path(current_user) %></li>
 
   <li><%= link_to "Logout" , destroy_user_session_path , :method => "get" %></li>
 <% else %>

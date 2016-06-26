@@ -2,6 +2,12 @@
 == Start 
 */
 @media (min-width: 992px) { 
+.small-margin {
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+
 header .container {
   z-index:1;
   position:relative;
