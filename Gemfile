@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# Used for having clean code for proper funtioning. 
+gem 'draper'
 # This is used for OmniAuth along with devise
 gem 'omniauth'
 gem 'omniauth-facebook'

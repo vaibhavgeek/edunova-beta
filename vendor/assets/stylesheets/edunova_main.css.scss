@@ -1,3 +1,8 @@
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus 
+{
+  background-color: #003366;
+    border-color: #003366;
+}
 .form-signin
 {
     max-width: 330px;

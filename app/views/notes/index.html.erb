@@ -1,2 +1,56 @@
-<h1>Notes#index</h1>
-<p>Find me in app/views/notes/index.html.erb</p>
+
+
+
+
+
+
+          
+<div class="col-sm-3" >
+<div class="row">
+<div class="list-group col-sm-11 col-sm-offset-1">
+  <div class="list-group border-bottom" style="padding-top:15px;">
+   <% if current_user %>
+
+<%= link_to  notes_path , :class => 'list-group-item active' , :onclick => '$(".list-group-item").removeClass("active");$(this).addClass("active");' , remote: true , :id => 'my-notes'  do %>
+<span class="glyphicon glyphicon-inbox"> </span>
+ My Notes
+   <span class="badge" id="note_count"><%= Note.where(:user_id => current_user.id).count %></span>
+<% end %>
+
+
+<%= link_to new_note_path , :class => 'list-group-item' , :onclick => '$(".list-group-item").removeClass("active");$(this).addClass("active");' , remote: true , :id => 'new-note' do %>
+<span class="glyphicon glyphicon-pencil"> </span> New Note    
+<% end %>
+</div>
+   
+<% end %>
+
+    <div class="list-group border-bottom" style="padding-top:5px;">
+
+
+<%= link_to  notes_help_path , :class => 'list-group-item' , :onclick => '$(".list-group-item").removeClass("active");$(this).addClass("active");' , remote: true , :id => 'my-notes'  do %>
+<span class="glyphicon glyphicon-question-sign"> </span>
+ Help
+   
+<% end %>
+          
+</div>
+
+  <a href="#" class="list-group-item active">
+    Cras justo odio
+  </a>
+  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+  <a href="#" class="list-group-item">Morbi leo risus</a>
+  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+  <a href="#" class="list-group-item">Vestibulum at eros</a>
+  </div>
+  </div>
+</div>
+<div class="panel col-sm-9">
+something here
+</div>
+
+
+
+
+  
