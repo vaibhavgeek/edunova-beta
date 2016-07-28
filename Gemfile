@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 
 # Used for having clean code for proper funtioning. 
 gem 'draper'
+gem 'friendly_id'
+#Used for friednly urls. It's pretty cool
 gem 'annotate'
+# Used for annotating the files. Needs to be called after every migration.
 # This is used for OmniAuth along with devise
 gem 'omniauth'
 gem 'omniauth-facebook'
