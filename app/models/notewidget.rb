@@ -22,4 +22,6 @@
 
 class Notewidget < ActiveRecord::Base
 	belongs_to :user
+	 validates_presence_of :note_id
+
 end
