@@ -63,6 +63,15 @@ has_many :intrests
          :recoverable, :rememberable, :trackable, :validatable , :omniauthable, :confirmable, :omniauth_providers => [:facebook ,:google_oauth2 ]
 
 before_create :slug_user
+after_create :after_signup_action
+
+
+
+  def after_signup_action
+  rel = Relationship.new(:following_id => self.id , :follower_id => self.id)
+  rel.save
+
+  end
 
 def slug_user
   if self.name 
