@@ -26,6 +26,11 @@
 #  confirmation_token     :string
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
+#  slug                   :string
+#  avatar_file_name       :string
+#  avatar_content_type    :string
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
 #
 # Indexes
 #
@@ -39,20 +44,37 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+ extend FriendlyId
+  friendly_id :username,  use: [:slugged, :finders] 
+validates :username, format: { with: /\A[a-z0-9\-_]+\z/i  }
+has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/deafult-pic.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+ validates_presence_of :username
+  validates_uniqueness_of :username
+has_many :intrests
+  has_many :notes
+  has_many :comments
+  has_many :lists
+  has_many :relationships, :class_name => "Relationship"
+  has_many :feeds
+  has_many  :plays
+  has_many :notifications , :class_name => "Notification"
    devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable , :omniauthable, :confirmable, :omniauth_providers => [:facebook ,:google_oauth2 ]
 
 before_create :slug_user
 
 def slug_user
-  uname = self.name.parameterize 
-  max_slug = User.where("username like '#{uname}-%'")
-  if max_slug == nil
-    max_count = 1
-  else
-    max_count = (max_slug.count.to_i + 1).to_s   
+  if self.name 
+        uname = self.name.parameterize 
+        max_slug = User.where("username like '#{uname}-%'")
+        if max_slug == nil
+          max_count = 1
+        else
+          max_count = (max_slug.count.to_i + 1).to_s   
+        end
+        self.username =  "#{uname}-#{max_count}"
   end
-  self.username =  "#{uname}-#{max_count}"
 end
 
 

@@ -1,9 +1,13 @@
 source 'https://rubygems.org'
 
 # Used for having clean code for proper funtioning. 
-gem 'draper'
+gem 'draper'	
 gem 'friendly_id'
+gem 'paperclip'
 #Used for friednly urls. It's pretty cool
+
+gem 'will_paginate', '~> 3.0.6'
+# Used for pagination, further script is needed for auto scroll
 gem 'annotate'
 # Used for annotating the files. Needs to be called after every migration.
 # This is used for OmniAuth along with devise

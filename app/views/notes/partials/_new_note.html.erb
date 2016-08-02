@@ -1,0 +1,118 @@
+<center><h1>create new note</h1></center>
+ <%= form_for @note  do |naw| %>
+         
+<div style="padding-left:15px; padding-right:15px;" class="row">
+<% if @note.errors.any? %>
+    <div id="error_explanation" class="alert alert-error" >
+      <h4>
+       <%=  pluralize(@note.errors.count, "error")  %> has been incurred
+        
+      </h4>
+      <ul>
+        <% @note.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+             Title
+        <%= naw.text_field :name , :class => 'form-control'  %>
+         Note from author <br>
+    <%= naw.text_area :note_from_author , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell users wether the note requires any prerequisites and what is purpose for creating this note." , :class => 'form-control' %>
+              
+    
+    
+              Labels <br>
+
+    <%= naw.text_field :prereq ,  :rows => "7" , :id => 'prerequisites' , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell the branch, this note belongs to. example maths, programming, history etc " %>
+            
+    
+
+
+
+
+   
+</div>
+</div>
+     
+     
+
+
+
+<div id="note-wrapper">
+<%= naw.fields_for :notearticles do |builder| %>
+
+        <%= render 'notes/widgets/article', f: builder %> <br/>
+
+<% end %> 
+<%= naw.fields_for :noteapplets do |build| %>
+
+        <%= render 'notes/widgets/applet', f: build %> <br/>
+
+<% end %> 
+<%= naw.fields_for :notequestions do |qf| %>
+
+        <%= render 'notes/widgets/exercise', f: qf %> <br/>
+
+<% end %> 
+
+
+</div>
+Add widget to Note:-    <br/> <br/>   
+<ul class="nav nav-pills">
+ <li role="presentation">
+               <%= link_to_add_association 'Add Article', naw, :notearticles  , :partial => 'notes/widgets/article' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+<li role="presentation">
+               <%= link_to_add_association 'Add Question', naw, :notequestions  , :partial => 'notes/widgets/exercise' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+<li role="presentation">
+              <%= link_to_add_association 'Add SVG/JQuery Applet', naw, :noteapplets  , :partial => 'notes/widgets/applet' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+</ul>
+    
+
+
+        <%= naw.submit "Create Note" , {:class => 'btn btn-primary btn-lg pull-right'} %>
+
+  <% end %>
+ </div>
+
+
+
+<script type="text/javascript">
+var engine = new Bloodhound({
+  
+  datumTokenizer: function(d) {
+    return Bloodhound.tokenizers.obj.whitespace(d.value);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+   remote: {
+    url: '/profiles/intrests/%QUERY.json',
+     filter: function (engine) {
+            // Map the remote source JSON array to a JavaScript object array
+            return $.map(engine, function (intrest) {
+                return {
+                    value: intrest.value
+                };
+            });
+        }
+  }
+
+});
+
+engine.initialize();
+$('#prerequisites').tokenfield({
+  typeahead: [null, { displayKey: 'value', source: engine.ttAdapter() }]
+});
+
+$('#prerequisites').on('tokenfield:createtoken', function (event) {
+    var existingTokens = $(this).tokenfield('getTokens');
+    $.each(existingTokens, function(index, token) {
+        if (token.value === event.attrs.value)
+            event.preventDefault();
+    });
+});
+
+</script>

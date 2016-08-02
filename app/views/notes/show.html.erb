@@ -1,0 +1,579 @@
+<div class="row panel no-gutter panel eq-height">
+
+<div class="panel-default">
+<div class="panel-body">
+
+
+<div class="row" style="padding-left:15px;padding-right:15px;">
+<div class="row">
+  <div class="col-md-4">
+  <div class="btn-group">
+ 
+ <%= link_to :back , class: "btn btn-default btn-sm" do %>
+ <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back                <% end %>
+
+
+<%= link_to note_game_view_path(@note) , remote: :true , class: "btn btn-default btn-sm" do %>
+ <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Game  <% end %>
+<%= link_to note_html_view_path(@note) , remote: :true , class: "btn btn-default btn-sm" do %>
+ <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  <% end %>
+
+<%= link_to profile_path(@note.user) , class: "btn btn-default btn-sm" do %>
+ <span class="glyphicon glyphicon-user" aria-hidden="true"> </span> Creator Profile         <% end %> 
+</div>
+
+  </div>
+  <div class="col-md-2 col-md-offset-2">
+
+
+<div class="btn-group">
+    <%= link_to  note_comment_view_path(@note)  ,:class => 'btn btn-primary btn-sm' , :remote => true do %> 
+     <span class="glyphicon glyphicon-comment
+" aria-hidden="true"></span> conversation 
+ <span class="badge" id="comment_count"><%= @note.comments.count %>
+</span>
+    <% end %>
+
+
+
+  </div>
+</div>
+   <div class="col-md-4">
+<div class="btn-group pull-right">
+  <% if current_user == @note.user %>
+    <%= link_to  edit_note_path(@note)  ,:class => 'btn btn-default btn-sm' do %> 
+<span class="glyphicon glyphicon-pencil"> </span> Edit 
+<% end %>
+  <% end %>
+ 
+  
+</div>
+
+<% if current_user %>
+                  <div class="btn-group pull-right" id="voteapp">
+
+                <% if current_user.voted_up_on?(@note) %> 
+
+
+                <%= link_to unlike_note_path(@note) , method: :put , class: "btn btn-default btn-sm" , :id => 'unlike_note_path' , remote: true do %>
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+
+                
+                Unvote <%= @note.get_upvotes.size %>
+
+
+                <% end %>
+
+                <% else %>
+
+<%= link_to like_note_path(@note) , method: :put , class: "btn btn-default btn-sm" , :id => 'like_note_path' , remote: true do %>
+                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+
+                
+                Upvote <%= @note.get_upvotes.size %>
+                <% end %>
+
+                <% end %>
+
+
+               
+  
+                </div>
+                    <% end %>
+
+                  </div>
+
+
+   </div>
+
+</div>
+
+
+
+ 
+
+
+ 
+
+
+<hr class="style" />
+       
+
+                <div class="media" id="loadsnoteinfo">
+                    <a class="pull-left" href="#">
+    <%= attachment_image_tag(@note.user, :image, :fill, 100, 100 ,fallback: "deafult-pic-100.png") %>
+
+                    </a>
+                    
+                    <div class="media-body">
+                        <h3 class="media-heading">  <%= @note.name %>  <small>by 
+                          <%= @note.user.name %> (@<%= @note.user.username %>)</small>
+
+
+                        </h3>
+<b>labels : </b>
+    <% intress = @note.prereq.to_s.split(',') %>
+ <% for i in 0..(intress.count-1) %>     
+    #<%= @note.prereq.to_s.split(',')[i].strip %>
+  
+    <% end %> 
+<br/>                        
+                       
+    <%= @note.note_from_author %>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+<div id="mainconnote">
+     <% if @note.description.to_s != 'insight' %>
+
+  <div id="tohihe">
+
+<div id='loading'>
+     <div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+    loading...
+  </div>
+</div>
+    </div>
+
+<div id='b' class='panel col-sm-7'> 
+ <div id="loaderofstuff">
+ 
+ </div>
+      <div class="footermodal">
+        <button type="button" class="btn btn-default" id='close_modal' data-dismiss="modal">Close</button>
+      </div></div>
+
+            <center><canvas id='myGame' width="1100" height="630"></canvas></center>
+          <p class="bubble">
+          <span id="loader"> </span> 
+<button id='close_x' class='btn'><i class='fa fa-times' aria-hidden='true'></i></button>
+          </p>  
+
+</div>
+<% else %>
+<%= render 'html_view'  %>
+<% end %>
+</div>
+  <div id="comments" class="col-lg-8" >
+</div>
+</div>
+</div>
+</div>
+
+      
+
+<script type="text/javascript">
+<% current_rocket = 1 %>
+no_rockets=8;
+            $('#b').show(function(){
+              
+              $('#close_modal').hide();
+              function explode(){
+                    Q.pauseGame();
+                    $('#close_modal').show();
+                }
+               setTimeout(explode, 2000);
+            });
+ 
+
+function message(msg_no)
+{
+  var msg=["hey @<%= current_user.username %>! Your aim is to rescue thetrapped humans<br>  from the evil aliens by launching the rockets. Good luck!","Aliens tried to restrict you from reading the note <br>. Read the widget thoroughly before continuing!"," hint"," You are doing a great job <%= current_user.username %> ! Only " +no_rockets+ " left to be rescued!"];
+ //$('.bubble').innerHTML=msg[1];
+
+  $('.bubble').fadeIn(function(){
+    if(msg_no!=3)
+    {
+     
+      $('#loader').html(msg[msg_no]);
+   }
+   $('.bubble').delay( 5000 ).fadeOut(2000);
+
+ //else
+  ////////////////////  hint for questions
+  });
+  $('#close_x').click(function(){
+  $('.bubble').hide();
+  canvas.focus();
+});
+}
+
+var Q = Quintus({imagePath:"/assets/",dataPath:"/assets/",audioPath:"/assets/",development:true})
+        .include("Audio,Sprites, Scenes, Input, 2D, Anim, Touch, UI,TMX")
+        .setup("myGame")
+        .controls(true).touch()
+
+var final_score=0,
+    level_score=0,
+    temp_score=0,
+    level=0,
+    cosnsto = 0 ,
+    temp_level=0,
+    startx,starty,initial=1;
+    var canvas =document.getElementById('myGame');
+
+Q.Sprite.extend("Player",{
+
+  init: function(p) {
+   
+    this._super(p, {
+      sheet: "main",
+      sprite: "player",
+       jumpSpeed: -600,
+       speed: 200 ,
+       stage:0,
+        standingPoints: [ [8,30],[-8,30],[-8,-30],[8,-30]],
+    //  duckingPoints : [ [ -16, 44], [ -23, 35 ], [-23,-48], [23,-10], [23, 35 ], [ 16, 44 ]],
+      frame: 1,
+       type: Q.SPRITE_PLAYER,
+      collisionMask: Q.SPRITE_DEFAULT | Q.SPRITE_ENEMY
+
+    });
+  this.p.points = this.p.standingPoints;
+
+
+    this.add('2d, platformerControls,animation');
+    this.on("hit.sprite",function(collision) {
+
+                if(collision.obj.isA("Door")) {
+                  initial=1;
+                  final_score=level_score+200;
+                  level_score=0;
+            Q.stageScene("endGame",1, { label: "You Won!" }); 
+            this.destroy();
+            
+          
+        
+          }
+        });
+
+  },
+   step: function(dt) {
+            if(Q.inputs['right']) {
+      this.play("run_right");
+    } else if(this.p.vx < 0) {
+      this.play("run_left");
+    } else {
+      this.play("stand");
+    }
+
+    if(this.p.vy > 1300) {
+      this.stage.unfollow();
+        Q.stageScene("endGame",2, { label: "You Died" }); 
+      this.destroy();  
+
+    }
+        },
+
+});
+Q.Sprite.extend("Door",{
+  init: function(p){
+    this._super(p,{
+      sheet:'door',
+      collisionMask: Q.SPRITE_PLAYER
+    });
+  }
+});
+Q.Sprite.extend("Enemy", {
+  init: function(p) {
+
+    this._super(p,{
+      sheet: p.sprite,
+      vx: 150,
+      type: Q.SPRITE_ENEMY,
+      collisionMask: Q.SPRITE_DEFAULT |Q.SPRITE_ENEMY 
+    });
+
+    this.add("2d, aiBounce, animation");
+    this.on("bump.left,bump.right,bump.bottom",function(collision) {
+      if(collision.obj.isA("Player")) { 
+                  Q.stageScene("endGame",2, { label: "You Died" });   
+                collision.obj.destroy();
+      }
+    });
+      this.on("bump.top",function(collision) {
+      if(collision.obj.isA("Player")) { 
+        this.destroy(); 
+        collision.obj.p.vy = -300; 
+        level_score+=100;
+         Q.stageScene("score",1, { 
+  label: "score: "+level_score
+});
+ // alert("x="+collision.obj.p.x+"  y="+collision.obj.p.y);
+      }
+    });
+  },
+  step: function(dt) {
+        if(this.p.vx > 0) {
+          this.p.flip="x";
+          this.play("walk");
+        } else if(this.p.vx < 0) {
+          this.p.flip="";
+          this.play("walk");
+        }
+    },
+});
+Q.Enemy.extend("Snail", {
+  init: function(p) {
+    this._super(p,{
+    //  w: 55,
+      //h: 34
+    });
+  }
+
+});
+Q.Enemy.extend("Fly", {
+  init: function(p) {
+    this._super(p,{
+     w: 55,
+      h: 34
+    });
+  }
+
+});
+Q.Enemy.extend("Slime", {
+  init: function(p) {
+    this._super(p,{
+     w: 55,
+      h: 36
+    });
+  }
+
+});
+var cnt=0,temp;
+Q.Sprite.extend("Rocket",{
+  init:function(p){
+    this._super(p,{
+      sheet: p.sprite,
+      frame:0,
+      scale:1.2,
+      condition:false,
+       collisionMask: Q.SPRITE_PLAYER,
+    });
+     this.add('2d,animation');
+    this.on("bump.left,bump.right,bump.top",function(collision){ 
+  if(collision.obj.isA("Player"))
+  {   
+     
+     switch(this.p.rocket_no.toString()) {
+      case "1":
+           $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+
+      break;
+
+      case "2":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 2} %>");
+
+      break;
+
+      case "3":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 3} %>");
+
+      break;
+
+      case "4":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 4} %>");
+
+      break;
+
+      case "5":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 5} %>");
+
+      break;
+
+      case "6":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 6} %>");
+
+      break;
+
+      case "7":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 7} %>");
+
+      break;
+
+      case "8":
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 8} %>");
+
+      break;
+
+      default:
+            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+
+
+     }     
+
+      $("#b").show();
+      
+            initial=0;            
+            final_score+=level_score;
+           startx=collision.obj.p.x+160;
+           starty=collision.obj.p.y;
+            this.play("fly");
+      //    $("#b").show();  
+            var pause=0;
+           $('#close_modal').click(function(){
+                  message(1);
+                  $('#b').hide(); 
+                  Q.unpauseGame();
+                  pause=1;
+                  canvas.focus();
+            }); 
+           
+     this.p.condition=true;
+}
+});
+       
+},
+step:function(dt){
+  if(this.p.condition)
+  {
+    this.add('tween');
+     this
+        .animate({ x: this.p.x , y:  this.p.y-500 }, 5, Q.Easing.Linear);
+    if(this.p.y==-500)
+      Q.pauseGame();
+  }
+}
+});
+  Q.output=function(stage)
+  { 
+ var xi= window.innerWidth/2+150, yi= window.innerHeight/2;
+  };
+
+Q.Sprite.extend("Coin",{
+  init:function(p){
+              this._super(p,{ 
+                sheet:p.sprite,
+                gravity:0,
+                collisionMask: Q.SPRITE_PLAYER,
+               });
+               this.add('2d,animation');
+              this.on("bump.left,bump.right,bump.top",function(collision){ 
+            if(collision.obj.isA("Player"))
+            { level_score+=50;
+               this.destroy(); 
+                Q.stageScene("score",1, { 
+                label: "score: "+level_score});
+
+                               }
+          });
+                 
+         }
+});
+
+
+  Q.scene("score",function(stage) {
+  var label = stage.insert(new Q.UI.Text({
+    x: Q.width/2, 
+    y: 10,color:"#000099",
+    label: stage.options.label
+  }));
+  var show=stage.insert(new Q.UI.Text({
+    x: startx, 
+    y: 300,color:"grey",
+    label: '+50'
+  }));
+  show.add("tween");
+//alert("hfhsfjslf");
+ show.animate({ x: startx, y:  starty-600 }, 1, Q.Easing.Quadratic.InOut)
+     .chain({ opacity: 0 }, 1, Q.Easing.Quadratic.In );
+  
+});
+
+
+Q.scene("level",function(stage) {
+if(initial)
+{
+  cnt=0,startx=400,starty=800;
+    message(0);
+}
+//stage.insert(new Q.Repeater({ asset: "back.png",repeatY:true, speedX: 10, speedY: 0.5 })); 
+  Q.stageTMX("<%= asset_path('level.tmx') %>",stage);
+  var player = stage.insert(new Q.Player({x:startx,y:starty,stage:stage}));
+   stage.add("viewport").follow(player);
+stage.viewport.offsetX=-200;
+stage.viewport.offsetY=100;
+   canvas.focus();
+   Q.stageScene("score",1, { 
+  label: "score: "+final_score
+}); 
+
+
+});
+
+
+Q.scene('endGame',function(stage) {
+  //Q.audio.stop();
+      var container = stage.insert(new Q.UI.Container({
+        x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
+      }));
+ 
+      var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+                                                      label: "Play Again" }))        
+      var label = container.insert(new Q.UI.Text({x:0, y: -10 - button.p.h, color: "#ffffff",
+                                                       label: stage.options.label }));
+       
+      button.on("click",function() {
+        Q.clearStages();
+        Q.stageScene('level');
+      });
+ 
+        container.fit(20);
+});
+
+Q.loadTMX( "<%= asset_path('level.tmx') %>,<%= asset_path('main.json') %>,<%= asset_path('main.png') %>,<%= asset_path('enemies.png') %>,<%= asset_path('enemies.json') %>,<%= asset_path('bird.json') %>,<%= asset_path('bird.png') %>,<%= asset_path('pole.json') %>,<%= asset_path('pole.png') %>,<%= asset_path('collectables.json') %>,<%= asset_path('collectables.png') %>,<%= asset_path('rocket.json') %>,<%= asset_path('rocket.png') %>,<%= asset_path('hit.mp3') %>,<%= asset_path('hit(1).mp3') %>,<%= asset_path('coin.mp3') %>,<%= asset_path('intro.mp3') %>", function() {
+  Q.compileSheets("door.png","door.json");
+  Q.compileSheets("main.png","main.json");
+ Q.compileSheets("<%= asset_path('enemies.png') %>","<%= asset_path('enemies.json') %>");
+ Q.compileSheets("pole.png","pole.json");
+ Q.compileSheets("<%= asset_path('collectables.png') %>","<%= asset_path('collectables.json') %>");
+ Q.compileSheets("<%= asset_path('rocket.png') %>","<%= asset_path('rocket.json') %>");
+        Q.animations('player', {
+        run_left: { frames: [11,12,13,14,15,16,17,18,19], next: 'stand_left', rate: 1/10},
+        run_right: { frames: [0,1,2,3,4,5,6,7,8,9], next: 'stand_right', rate: 1/10},
+        stand: { frames: [0]},
+        jump: { frames: [8], loop:false, rate: 1},
+    });
+         var EnemyAnimations = {
+      walk: { frames: [0,1], rate: 1/3, loop: true },
+      dead: { frames: [2], rate: 1/10 }
+    };
+    Q.animations("fly", EnemyAnimations);
+    Q.animations("slime", EnemyAnimations);
+    Q.animations("snail", EnemyAnimations);
+    Q.animations('pole',{
+        closed:{frames:[1],rate:1/10,flip: false},
+         open:{frames:[3,4,5,6,7,8,9,10,11],rate: 1/5, flip: false, loop: true }
+  });
+    Q.animations('rocket',{
+      fly:{frames:[0,1,2,3,4,5,6,7],rate: 1/8, flip: false, loop: true }
+  });
+  /* Q.animations("bird",{
+    fly:{frames:[0,1,2,3,4,5,6,7],rate:1/5,loop:true}
+   });
+  */
+
+  Q.stageScene("level");
+},{ progressCallback: function(loaded,total){
+  var element = document.getElementById("loading");
+  $('#b').hide();$('.bubble').hide();
+    element.style.width = Math.floor(loaded/total*100) + "%";
+   if (loaded == total) {
+      document.getElementById("loading").remove();
+    }
+}
+});
+
+
+
+</script>
+
+

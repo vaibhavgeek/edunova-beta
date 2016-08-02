@@ -1,0 +1,33 @@
+
+
+
+<div id="removeongame" class="removeongame">
+<div class="col-md-10 well col-md-offset-1">
+<center>
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default"> <span class="badge" style="margin-top:13px;margin-bottom:9px;">Widgets:- </span></button>
+  <% @widgets.each do |wid| %>
+  <% @cnt += 1 %>
+
+<%= link_to note_display_widgets_path(:note_id => @note , :level_load =>@cnt , :widget => 'someshit') , :class => 'btn btn-default' , :remote => true do %>
+
+  #<%= @cnt %> <br/><label class="label label-success"> <%= wid.type %>  </span>
+
+
+  <% end %>
+
+  
+  <% end %>
+
+</div>
+</center>
+<br/>
+<div id ="loadnot">
+<% params[:level_load] = 1%>
+<%= render 'notes/widgets/note_popup' %>
+</div>
+
+
+      
+</div>
+</div>

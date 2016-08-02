@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class User - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-from_omniauth">::from_omniauth</a>
+    
+    <li ><a href="#method-c-from_omniauthg">::from_omniauthg</a>
+    
+    <li ><a href="#method-i-slug_user">#slug_user</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-User">
+  <h1 id="class-User" class="class">
+    class User
+  </h1>
+
+  <section class="description">
+    
+<h2 id="class-User-label-Schema+Information">Schema Information<span><a href="#class-User-label-Schema+Information">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Table name: users</p>
+
+<pre>id                     :integer          not null, primary key
+created_at             :datetime         not null
+updated_at             :datetime         not null
+email                  :string           default(&quot;&quot;), not null
+encrypted_password     :string           default(&quot;&quot;), not null
+reset_password_token   :string
+reset_password_sent_at :datetime
+remember_created_at    :datetime
+sign_in_count          :integer          default(0), not null
+current_sign_in_at     :datetime
+last_sign_in_at        :datetime
+current_sign_in_ip     :inet
+last_sign_in_ip        :inet
+provider               :string
+uid                    :string
+image_id               :string
+name                   :string
+gender                 :string
+intrested_in           :string
+description            :string
+username               :string           default(&quot;&quot;), not null
+confirmation_token     :string
+confirmed_at           :datetime
+confirmation_sent_at   :datetime</pre>
+
+<p>Indexes</p>
+
+<pre>index_users_on_confirmation_token    (confirmation_token) UNIQUE
+index_users_on_email                 (email) UNIQUE
+index_users_on_name                  (name)
+index_users_on_reset_password_token  (reset_password_token) UNIQUE
+index_users_on_username              (username) UNIQUE</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-from_omniauth" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">from_omniauth</span><span
+            class="method-args">(auth)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="from_omniauth-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">from_omniauth</span>(<span class="ruby-identifier">auth</span>)
+  <span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">email</span>).<span class="ruby-identifier">first_or_create</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span> = <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password</span> = <span class="ruby-constant">Devise</span>.<span class="ruby-identifier">friendly_token</span>[<span class="ruby-value">0</span>,<span class="ruby-value">20</span>]
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">name</span> = <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">name</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">skip_confirmation!</span> 
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-from_omniauthg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">from_omniauthg</span><span
+            class="method-args">(access_token)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="from_omniauthg-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">from_omniauthg</span>(<span class="ruby-identifier">access_token</span>)
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>
+    <span class="ruby-identifier">where</span>(<span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">&quot;email&quot;</span>]).<span class="ruby-identifier">first_or_create</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">name</span> = <span class="ruby-identifier">data</span>[<span class="ruby-string">&quot;name&quot;</span>]
+            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">gender</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">extra</span>.<span class="ruby-identifier">raw_info</span>.<span class="ruby-identifier">gender</span>.<span class="ruby-identifier">to_s</span>
+            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">skip_confirmation!</span> 
+            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">provider</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">provider</span>.<span class="ruby-identifier">to_s</span> 
+            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password</span> = <span class="ruby-constant">Devise</span>.<span class="ruby-identifier">friendly_token</span>[<span class="ruby-value">0</span>,<span class="ruby-value">20</span>] 
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-slug_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">slug_user</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="slug_user-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">slug_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span> 
+        <span class="ruby-identifier">uname</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">parameterize</span> 
+        <span class="ruby-identifier">max_slug</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-node">&quot;username like &#39;#{uname}-%&#39;&quot;</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">max_slug</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+          <span class="ruby-identifier">max_count</span> = <span class="ruby-value">1</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">max_count</span> = (<span class="ruby-identifier">max_slug</span>.<span class="ruby-identifier">count</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span>   
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">username</span> =  <span class="ruby-node">&quot;#{uname}-#{max_count}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.2.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

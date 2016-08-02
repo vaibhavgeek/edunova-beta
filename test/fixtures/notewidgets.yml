@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  note_id: 1
+  tag_one: MyString
+  tag_two: MyString
+  tag_three: MyString
+  tag_four: MyString
+  tag_five: MyString
+  tag_six: MyString
+  tag_seven: MyString
+  tag_eight: MyString
+  tag_nine: MyString
+  tag_ten: MyString
+  type: 
+  certified: false
+
+two:
+  note_id: 1
+  tag_one: MyString
+  tag_two: MyString
+  tag_three: MyString
+  tag_four: MyString
+  tag_five: MyString
+  tag_six: MyString
+  tag_seven: MyString
+  tag_eight: MyString
+  tag_nine: MyString
+  tag_ten: MyString
+  type: 
+  certified: false

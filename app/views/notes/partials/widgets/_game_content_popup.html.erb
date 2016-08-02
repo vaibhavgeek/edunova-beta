@@ -1,0 +1,268 @@
+
+<% if locals[:widget].between?(1,3) %>
+<% loaderwid =  locals[:widget].to_i - 1 %>
+
+<% else %>
+<% loaderwid = 0 %>
+
+<% end %>
+<% @toload =  @widgets[loaderwid] %>
+<% if @toload.type == 'article' %>
+<%= @toload.content.html_safe %>
+
+<% elsif @toload.type == 'applet' %>
+You'll implement a particular sorting algorithm in a moment. But as a warmup, here is a sorting problem to play with. You can swap any pair of cards by clicking on one card, and then the other. Swap cards until the cards are sorted with with smallest card on the left.
+<iframe width="900px" height="250px" srcdoc="
+      <!doctype html>
+      <html>
+        <head>
+          <script>
+            (function () {
+              window.addEventListener('DOMContentLoaded', function () {
+                window.parent.postMessage(JSON.stringify({
+                  type: 'jotted-dom-ready'
+                }), '*')
+              })
+            }())
+          </script>
+
+          <style>.svg-area {
+  padding-right: 20px;
+}
+
+.drawing_surface {
+  height: 90%;
+  width: 100%;
+  max-width:800px;
+  margin:0 auto;
+  
+  > svg* {
+    overflow: visible;
+  }
+}
+</style>
+        </head>
+        <body>
+          <html style=&quot;height: 100%;&quot;>
+ <head>
+   <script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.0/svg.min.js&quot;></script>
+ </head>
+ <body style=&quot;height: 100%&quot;>
+   <div id=&quot;drawing&quot; class=&quot;drawing_surface&quot; />
+ </body>
+</html>
+
+
+          <!--
+            Jotted:
+            Empty script tag prevents malformed HTML from breaking the next script.
+          -->
+          <script></script>
+          <script>/* create an svg drawing */
+var draw = SVG('drawing');
+var card_width = 113;
+var card_height = 175;
+var card_gap = 100;
+var start_x = 10;
+var start_y = 40;
+var card_move_factor = 60;
+var square_size = 50;
+var card_values = [5, 13, 47, 7, 23, 2, 41, 29, 53, 17, 11];
+var card_containers = [];
+var ignore_clicks = false;
+draw.addClass('svg-area')
+var first_selected_card = null;
+
+function fixZIndex() {
+  for (var i = card_containers.length - 1; i >= 0 ; i--) {
+    card_containers[i].back();
+  }
+}
+
+function getRegularStrokeStyle() {
+  return { color: 'black', width: 2 };
+}
+
+function getMouseOverStrokeStyle() {
+  return { color: 'orange', width: 5 };
+}
+
+function getHighlightStrokeStyle() {
+  return { color: 'green', width: 5 };
+}
+
+function handleMouseover(card_container) {
+  card_container.card_svg.stroke(getMouseOverStrokeStyle());
+}
+
+function handleMouseout(card_container) {
+  card_container.card_svg.stroke(getRegularStrokeStyle());
+}
+
+function handleClick(card_container) {  
+  if (ignore_clicks) {
+    return;
+  }
+
+  ignore_clicks = true;
+  
+  if (card_container.selected) {
+    card_container.animate(100).move(card_container.x(), card_container.y() + card_move_factor);
+    card_container.selected = false;
+    first_selected_card = null;
+    ignore_clicks = false;
+    return;
+  }
+  
+  if (first_selected_card === null) {
+    card_container.selected = true;
+    first_selected_card = card_container;
+    card_container.animate(100).move(card_container.x(), card_container.y() - card_move_factor);
+    ignore_clicks = false;
+    return;
+  }
+  
+  // This is the case where we need to swap
+  
+  card_container.animate(10).move(card_container.x(), card_container.y() - card_move_factor);
+  
+  // It goes well with first_selected_card to keep harmony
+  var second_selected_card = card_container;
+  
+  var first_card_target_x = second_selected_card.x();
+  var first_card_target_y = second_selected_card.y();
+  var first_card_target_index = second_selected_card.card_index;
+
+  var second_card_target_x = first_selected_card.x();
+  var second_card_target_y = first_selected_card.y() + card_move_factor;;
+  var second_card_target_index = first_selected_card.card_index;
+  
+  first_selected_card.animate(300).move(first_card_target_x, first_card_target_y).after(
+    function() {
+      second_selected_card.animate(300).move(second_card_target_x, second_card_target_y).after(
+        function() {
+          first_selected_card.card_index = first_card_target_index;
+          card_containers[first_selected_card.card_index] = first_selected_card;
+          
+          second_selected_card.card_index = second_card_target_index;
+          card_containers[second_selected_card.card_index] = second_selected_card;
+          
+          fixZIndex();
+          
+          function finalStepsInAnimation() {
+            
+          }
+          
+          var animated_rects_count = 0;
+          var unanimated_rects_count = 0;
+          
+          var cards_set = draw.set();
+          
+          cards_set.add(first_selected_card.card_svg);
+          cards_set.add(second_selected_card.card_svg);
+          
+          cards_set.animate(300).stroke(getHighlightStrokeStyle()).after(
+            function() {
+              animated_rects_count++;
+              if (animated_rects_count === 2) {
+                cards_set.animate(100).stroke(getRegularStrokeStyle()).after(
+                  function() {
+                    unanimated_rects_count++;
+                    if (unanimated_rects_count === 2) {
+                      first_selected_card.selected = false;
+                      second_selected_card.selected = false;
+                      first_selected_card = null;
+                      ignore_clicks = false;
+                    }
+                  })
+              }
+            });          
+        });
+    });
+}
+
+function draw_deck() {
+  var current_x = start_x;
+  var current_y = start_y;
+  
+  for (var i = 0; i < card_values.length; i++) {
+    var container = draw.nested();
+    
+    container.card_svg = container.rect(card_width, card_height).attr({ x: 0, y: 0, fill: &quot;#FFFED4&quot;});
+    container.card_svg.radius(5);
+    container.card_svg.stroke(getRegularStrokeStyle()); 
+    
+    container.value_svg = container.plain(String(card_values[i]));
+    container.value_svg.font({ size: 20, family: 'Verdana' });
+    container.value_svg.x(5);
+    container.value_svg.y(5);
+    
+    container.heart_svg = container.plain(&quot;♥&quot;);
+    container.heart_svg.font({ size: 20, family: 'Verdana', fill: &quot;red&quot; });
+    container.heart_svg.x(10);
+    container.heart_svg.y(30);
+    
+    container.card_index = i;
+    container.card_value = card_values[i];
+    
+    container.x(current_x);
+    container.y(current_y);
+    
+    container.selected = false;
+  
+    container.mouseover(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      handleMouseover(this);
+    });
+    
+    container.mouseout(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      handleMouseout(this);
+    });
+    
+    container.click(function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      handleClick(this);
+    });
+
+    card_containers.push(container);
+    
+    current_x += card_gap;
+  }
+}
+
+draw_deck();
+draw.viewbox(0, 0, draw.bbox().width, draw.bbox().height);
+</script>
+        </body>
+      </html>
+    "></iframe>
+
+<% elsif @toload.type == 'question' %>
+
+<div class="col-md-12 questions">
+<div class="well">
+<h3><%= @toload.question_text %> </h3>
+      
+<ul class="list-group">
+    <label><li class="list-group-item"  onclick  = '$(".questions .active").removeClass("active");$(this).addClass("active");' ><%= radio_button_tag 'option', "option1" %> <%= @toload.option1 %> </li> </label>
+     <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'><%= radio_button_tag 'option', "option2" %> <%= @toload.option2 %></li></label>
+      <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'> <%= radio_button_tag 'option' , "option3" %> <%= @toload.option3 %></li></label> 
+      <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'> <%= radio_button_tag 'option' , "option4" %> <%= @toload.option4 %> </li></label>
+     </ul>
+<%= link_to "Submit" ,'#' , :class => 'btn btn-primary pull-right' %>
+<br/><br/>
+</div>
+</div>
+
+
+<% end %>
+
+
+
+
+     
+
