@@ -24,6 +24,12 @@ devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_call
         member do 
           put 'follow_user'
           put 'destroy_follow_user'
+          get 'all'
+          get 'created'
+          get 'played'
+          get 'quizzed'
+          get 'upvoted'
+          get 'commented'  
           get 'all_activity'
           get 'following'
           get 'followers'

@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
      @delfed = Feed.find(params[:id])
      @delfed.destroy
   end
+=begin 
   def intrests
     if params[:query].to_s != 'allint'
     str = params[:query].to_s
@@ -17,7 +18,7 @@ class ProfilesController < ApplicationController
     end
     render json: @search
   end
-  
+
   def all_people
     if params[:query].to_s != 'allint'
     str = params[:query].to_s
@@ -27,6 +28,7 @@ class ProfilesController < ApplicationController
     end
     render json: @search
   end
+=end
   
   def all_activity
      @user = User.friendly.find(params[:id])
@@ -39,41 +41,37 @@ class ProfilesController < ApplicationController
   
   def following
          @user = User.friendly.find(params[:id])
-my_frien_req = Relationship.where(:following_id => @user.id , :follower_id => @user.id) 
-stuff =  Relationship.joins('
-INNER JOIN users
-ON relationships.following_id = users.id
-WHERE relationships.follower_id = '+@user.id.to_s).order(:created_at => :asc)
- 
-    @allfollowing =  stuff - my_frien_req
-
- 
+         my_frien_req = Relationship.where(:following_id => @user.id , :follower_id => @user.id) 
+         stuff =  Relationship.joins('
+         INNER JOIN users
+         ON relationships.following_id = users.id
+         WHERE relationships.follower_id = '+@user.id.to_s).order(:created_at => :asc)
+         @allfollowing =  stuff - my_frien_req
   end
   
   def followers
-       @user = User.friendly.find(params[:id])
+      @user = User.friendly.find(params[:id])
       @allfollowers = Relationship.joins('
-INNER JOIN users
-ON relationships.follower_id = users.id
-WHERE relationships.following_id = '+@user.id.to_s).order(:created_at => :desc)
-  
+      INNER JOIN users
+      ON relationships.follower_id = users.id
+      WHERE relationships.following_id = '+@user.id.to_s).order(:created_at => :desc)
   end
 
 
   def notes 
           @user = User.friendly.find(params[:id])
-        @allnotes = Note.where(:user_id => @user.id) 
+          @allnotes = Note.where(:user_id => @user.id) 
   end
+
   def show
-   @user = User.friendly.find(params[:id])
-     
+        @user = User.friendly.find(params[:id])
         @profile_feeds = Feed.joins('INNER JOIN  users 
         ON feeds.user_id = users.id
         Where 
-        feeds.user_id = ' + @user.id.to_s).order(:created_at => :desc)
-     
-   @boolrel = Relationship.where(follower_id:current_user.id , following_id: @user.id ).count
+        feeds.user_id = ' + @user.id.to_s).order(:created_at => :desc)   
+        @boolrel = Relationship.where(follower_id:current_user.id , following_id: @user.id ).count
   end
+
    def created
         @user = User.friendly.find(params[:id])
         @profile_create = Feed.joins('INNER JOIN  users 
@@ -101,8 +99,7 @@ WHERE relationships.following_id = '+@user.id.to_s).order(:created_at => :desc)
         ON feeds.user_id = users.id').where(:set_type => 'upvote' , :user_id => @user.id).order(:created_at => :desc)
   end
   def all
-      @user = User.friendly.find(params[:id])
-     
+      @user = User.friendly.find(params[:id])  
         @profile_feeds = Feed.joins('INNER JOIN  users 
         ON feeds.user_id = users.id
         Where 
@@ -145,7 +142,7 @@ WHERE relationships.following_id = '+@user.id.to_s).order(:created_at => :desc)
   end
   private
   def user_params
-    params.require(:user).permit( :username , :avatar ,:description,:dob ,:name ,:gender ,:intrested_in)
+    params.require(:user).permit( :username , :avatar ,:description,:dob ,:name ,:gender ,:tag_list)
   end
 
 end

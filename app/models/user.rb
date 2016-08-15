@@ -44,14 +44,14 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
- extend FriendlyId
+  extend FriendlyId
   friendly_id :username,  use: [:slugged, :finders] 
-validates :username, format: { with: /\A[a-z0-9\-_]+\z/i  }
-has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/deafult-pic.png"
+  validates :username, format: { with: /\A[a-z0-9\-_]+\z/i  }
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/deafult-pic.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
- validates_presence_of :username
+  validates_presence_of :username
   validates_uniqueness_of :username
-has_many :intrests
+  has_many :intrests
   has_many :notes
   has_many :comments
   has_many :lists
@@ -59,31 +59,33 @@ has_many :intrests
   has_many :feeds
   has_many  :plays
   has_many :notifications , :class_name => "Notification"
-   devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable , :omniauthable, :confirmable, :omniauth_providers => [:facebook ,:google_oauth2 ]
 
-before_create :slug_user
-after_create :after_signup_action
+  before_create :slug_user
+  after_create :after_signup_action
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+  acts_as_taggable_on :interests
+
+
+ 
+  def should_generate_new_friendly_id?
+  if !slug? || username_changed? || new_record? || slug.nil? || slug.blank?
+      true
+    else
+      false
+    end
+  end
 
 
 
-  def after_signup_action
+def after_signup_action
   rel = Relationship.new(:following_id => self.id , :follower_id => self.id)
   rel.save
-
-  end
+end
 
 def slug_user
-  if self.name 
-        uname = self.name.parameterize 
-        max_slug = User.where("username like '#{uname}-%'")
-        if max_slug == nil
-          max_count = 1
-        else
-          max_count = (max_slug.count.to_i + 1).to_s   
-        end
-        self.username =  "#{uname}-#{max_count}"
-  end
+
 end
 
 
@@ -92,6 +94,14 @@ def self.from_omniauth(auth)
     user.email = auth.info.email
     user.password = Devise.friendly_token[0,20]
     user.name = auth.info.name
+    uname = user.name.parameterize 
+    max_slug = User.where("username like '#{uname}-%'")
+    if max_slug == nil
+      max_count = 1
+    else
+      max_count = (max_slug.count.to_i + 1).to_s   
+    end
+    user.username =  "#{uname}-#{max_count}"        
     user.skip_confirmation! 
     end
 end
@@ -102,6 +112,14 @@ def self.from_omniauthg(access_token)
     data = access_token.info
     where(:email => data["email"]).first_or_create do |user|
             user.name = data["name"]
+            uname = user.name.parameterize 
+            max_slug = User.where("username like '#{uname}-%'")
+            if max_slug == nil
+              max_count = 1
+            else
+              max_count = (max_slug.count.to_i + 1).to_s   
+            end
+            user.username =  "#{uname}-#{max_count}"
             user.gender = access_token.extra.raw_info.gender.to_s
             user.skip_confirmation! 
             user.provider = access_token.provider.to_s 

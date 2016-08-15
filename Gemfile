@@ -5,7 +5,7 @@ gem 'draper'
 gem 'friendly_id'
 gem 'paperclip'
 #Used for friednly urls. It's pretty cool
-
+gem 'acts-as-taggable-on'		
 gem 'will_paginate', '~> 3.0.6'
 # Used for pagination, further script is needed for auto scroll
 gem 'annotate'
