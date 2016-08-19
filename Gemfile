@@ -12,6 +12,8 @@ gem 'annotate'
 # Used for annotating the files. Needs to be called after every migration.
 # This is used for OmniAuth along with devise
 gem 'omniauth'
+gem "cocoon"
+
 gem 'omniauth-facebook'
 gem 'oauth2'
 gem 'omniauth-google-oauth2'

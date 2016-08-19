@@ -1,31 +1,34 @@
 
 <div id="new-edit">
 
-  <div class="row eq-height">
-        <div class="col-xs-3">
-<%= image_tag @user.avatar.url(:medium) %>
+  <div class="row row-eq-height">
+        <div class="col-xs-2 col-xs-offset-1">
+<%= image_tag @user.avatar.url(:medium) , :class => 'img-circle' %>
 </div>
- <div class="col-xs-4 row-it-equal" style="padding-left:8px">
-    <h3 style="margin:0px; padding:0px;">
-                        <% if @user.username != '' and @user.username != nil%>
+ <div class="col-xs-4" style="padding-left:8px">
+    <p class="lead" style="margin:0px; padding:0px;">
+                        <% if @user.username != nil%>
                         @<%= @user.username %>
                         <% end %>
                         </h3>
 
-
-                        <% if @user.name == nil && current_user == @user %>
-                         <button class="btn btn-large" type="button">complete profile</button>
-                         <% else %>
 
                          <p style="margin:0px; padding:0px;" class="lead">  
                          <%=@user.name %>
                          </br>
                          
                         </p>
-
      <p  class="desc_profile" style="margin:0px; padding:0px;">
 <%= @user.description %>
-     </p>  
+     </p>
+     <% if @user.description.to_s == '' && current_user == @user %> 
+    <span class="label label-warning">    
+    <%= link_to edit_profile_path(current_user) ,id: 'edit-link' , remote: true do %>
+You have not filled your description. Click here to complete profile. 
+     <span class="glyphicon glyphicon-edit" ></span> <% end %>
+  </span>
+
+     <% end %>
 
 
                             
@@ -34,7 +37,6 @@
                            
 
 
-                        <%end%>
                       </div>
         <div class="col-xs-5 row-it-equal">
 <% if @user.intrested_in != ''  and @user.intrested_in != nil %>

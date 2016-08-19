@@ -24,13 +24,14 @@
 
     <div class="row">
         <div class="col-xs-3">
-           <%= attachment_image_tag(@profile, :image, :fill, 170, 150 ,fallback: "deafult-pic.png" , :class => "img-rounded img-responsive profile_image")  %>
-  <%= f.attachment_field :image   %>
-
-     <%= f.check_box  :remove_image %>
-  <%= f.label :remove_profile_image %> 
+        <div class="col-xs-12 col-xs-offset-1">
+        <%= image_tag @profile.avatar.url(:medium) , :class => 'img-circle' %>
+    </div>
+    <center>        <%= f.file_field :avatar %>
+</center>
 
         </div>
+
 
         <div class="col-xs-9"> 
   <div class="col-xs-6" style="padding-left:8px">
@@ -50,7 +51,8 @@
            <%= f.label :intrested_in %>
     <br/>
     <%= f.text_area :intrested_in ,:class => 'form-control tt-input' ,:id => 'typeahead' , :type => 'text' %>
-          
+<span class="label label-warning"> 
+    Separate interests using commas </span>      
         
 
           </div>

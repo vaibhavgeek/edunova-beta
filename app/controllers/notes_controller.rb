@@ -42,25 +42,6 @@ def html_view
   @note = Note.friendly.find(params[:note_id])
   end  
   
-  activities = []
-
-activities += Notearticle.where(:note_id => @note.id).all.map do |art|
-  Activity.new(art.content, nil ,nil , nil , nil , nil , nil , nil , nil, art.created_at , 'article')
-end
-  
-activities += Notequestion.where(:note_id => @note.id).all.map do |quest|
-  Activity.new(nil, quest.question_text, quest.option1 , quest.option2 , quest.option3 ,quest.option4 , quest.correct_answer, quest.solution_explain , quest.hint , quest.created_at , 'question')
-end
-
-
-activities += Noteapplet.where(:note_id => @note.id).all.map do |app|
-  Activity.new(app.content, nil ,nil , nil , nil , nil , nil , nil , nil, app.created_at , 'applet')
-end
-
-# descending sort by 'date' field
-# 10 most recent elements across all models
-@widgets = activities.sort_by(&:created_at)
-@cnt = 0
 end
 
 def display_widgets
@@ -70,33 +51,13 @@ def display_widgets
   else
   @note = Note.friendly.find(params[:note_id])
   end  
-  
-  activities = []
-
-activities += Notearticle.where(:note_id => @note.id).all.map do |art|
-  Activity.new(art.content, nil ,nil , nil , nil , nil , nil , nil , nil, art.created_at , 'article')
-end
-  
-activities += Notequestion.where(:note_id => @note.id).all.map do |quest|
-  Activity.new(nil, quest.question_text, quest.option1 , quest.option2 , quest.option3 ,quest.option4 , quest.correct_answer, quest.solution_explain , quest.hint , quest.created_at , 'question')
-end
-
-
-activities += Noteapplet.where(:note_id => @note.id).all.map do |app|
-  Activity.new(app.content, nil ,nil , nil , nil , nil , nil , nil , nil, app.created_at , 'applet')
-end
-
-# descending sort by 'date' field
-# 10 most recent elements across all models
-@widgets = activities.sort_by(&:created_at)
 
 end
 
 
   def new
   	@note = Note.new
-    @note.notearticles.build 
-    @hash = AmazonSignature::data_hash
+    @note.notewidgets.build 
     @array_levels = [*1..6].to_json
   end
 
@@ -170,26 +131,6 @@ end
 
   def show
    @note = Note.friendly.find(params[:id])
-    activities = []
-    @current_widgets = 1
-
-activities += Notearticle.where(:note_id => @note.id).all.map do |art|
-  Activity.new(art.content, nil ,nil , nil , nil , nil , nil , nil , nil, art.created_at , 'article')
-end
-  
-activities += Notequestion.where(:note_id => @note.id).all.map do |quest|
-  Activity.new(nil, quest.question_text, quest.option1 , quest.option2 , quest.option3 ,quest.option4 , quest.correct_answer, quest.solution_explain , quest.hint , quest.created_at , 'question')
-end
-
-
-activities += Noteapplet.where(:note_id => @note.id).all.map do |app|
-  Activity.new(app.content, nil ,nil , nil , nil , nil , nil , nil , nil, app.created_at , 'applet')
-end
-
-# descending sort by 'date' field
-# 10 most recent elements across all models
-@widgets = activities.sort_by(&:created_at)
-
 
   end
 
@@ -267,7 +208,7 @@ end
 
   private
   def note_params
-   params.require(:note).permit(:name , :prereq , :note_from_author , :notearticles_attributes => [:id , :content , :_destroy] , :noteapplets_attributes => [:id , :content , :_destroy] , :notequestions_attributes => [:id , :question_text , :option1 ,:option2 ,:option3 , :option4 , :correct_answer , :hint , :solution_explain , :_destroy])
+   params.require(:note).permit(:name , :prereq , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :_destroy])
   end
   
   def passion_params
@@ -277,4 +218,3 @@ end
   
 end
 
-class Activity < Struct.new(:content, :question_text, :option1 , :option2 , :option3 , :option4 , :correct_answer , :solution_explain ,:hint , :created_at , :type); end

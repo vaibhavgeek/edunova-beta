@@ -8,7 +8,7 @@ ActionMailer::Base.smtp_settings = {
    :port => 587,
    :domain => "gmail.com",
    :authentication => :login,
-   :user_name => "vaibhav@edunova.io",
+   :user_name => "thelogoweb@gmail.com",
    :password => "F1inindia"
  }
   # Code is not reloaded between requests.

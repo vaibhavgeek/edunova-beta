@@ -25,7 +25,7 @@
     
               Labels <br>
 
-    <%= naw.text_field :prereq ,  :rows => "7" , :id => 'prerequisites' , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell the branch, this note belongs to. example maths, programming, history etc " %>
+    <%= naw.text_field :labels ,  :rows => "7" , :id => 'prerequisites' , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell the branch, this note belongs to. example maths, programming, history etc " %>
             
     
 
@@ -41,19 +41,9 @@
 
 
 <div id="note-wrapper">
-<%= naw.fields_for :notearticles do |builder| %>
+<%= naw.fields_for :notewidgets do |builder| %>
 
-        <%= render 'notes/widgets/article', f: builder %> <br/>
-
-<% end %> 
-<%= naw.fields_for :noteapplets do |build| %>
-
-        <%= render 'notes/widgets/applet', f: build %> <br/>
-
-<% end %> 
-<%= naw.fields_for :notequestions do |qf| %>
-
-        <%= render 'notes/widgets/exercise', f: qf %> <br/>
+        <%= render 'notes/partials/widgets/widget', f: builder %> <br/>
 
 <% end %> 
 
@@ -62,13 +52,7 @@
 Add widget to Note:-    <br/> <br/>   
 <ul class="nav nav-pills">
  <li role="presentation">
-               <%= link_to_add_association 'Add Article', naw, :notearticles  , :partial => 'notes/widgets/article' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
-</li>
-<li role="presentation">
-               <%= link_to_add_association 'Add Question', naw, :notequestions  , :partial => 'notes/widgets/exercise' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
-</li>
-<li role="presentation">
-              <%= link_to_add_association 'Add SVG/JQuery Applet', naw, :noteapplets  , :partial => 'notes/widgets/applet' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+               <%= link_to_add_association 'Add Article', naw, :notewidgets  , :partial => 'notes/partials/widgets/widget' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
 </li>
 </ul>
     
