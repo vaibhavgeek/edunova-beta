@@ -1,16 +1,16 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.default_url_options = { :host => 'edunova.52fzb6kyar.ap-south-1.elasticbeanstalk.com' }
-ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.smtp_settings = {
-   :tls => true,
-   :address => "smtp.gmail.com",
-   :port => 587,
-   :domain => "gmail.com",
-   :authentication => :login,
-   :user_name => "thelogoweb@gmail.com",
-   :password => "F1inindia"
- }
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    address: "smtp.gmail.com",
+    port: "587",
+    domain: "gmail.com",
+    authentication: "plain",
+    user_name: "thelogoweb@gmail.com",
+    password: "F1inindia"
+    }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
