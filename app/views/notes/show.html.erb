@@ -15,7 +15,7 @@
 
 <%= link_to note_game_view_path(@note) , remote: :true , class: "btn btn-default btn-sm" do %>
  <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Game  <% end %>
-<%= link_to note_html_view_path(@note) , remote: :true , class: "btn btn-default btn-sm" do %>
+<%= link_to "note_html_view_path(@note)" , remote: :true , class: "btn btn-default btn-sm" do %>
  <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  <% end %>
 
 <%= link_to profile_path(@note.user) , class: "btn btn-default btn-sm" do %>
@@ -27,7 +27,7 @@
 
 
 <div class="btn-group">
-    <%= link_to  note_comment_view_path(@note)  ,:class => 'btn btn-primary btn-sm' , :remote => true do %> 
+    <%= link_to  "note_comment_view_path(@note)"  ,:class => 'btn btn-primary btn-sm' , :remote => true do %> 
      <span class="glyphicon glyphicon-comment
 " aria-hidden="true"></span> conversation 
  <span class="badge" id="comment_count"><%= @note.comments.count %>
@@ -101,7 +101,8 @@
 
                 <div class="media" id="loadsnoteinfo">
                     <a class="pull-left" href="#">
-    <%= attachment_image_tag(@note.user, :image, :fill, 100, 100 ,fallback: "deafult-pic-100.png") %>
+   <%= image_tag @note.user.avatar.url(:medium) , :class => 'img-circle' %>
+
 
                     </a>
                     
@@ -112,9 +113,9 @@
 
                         </h3>
 <b>labels : </b>
-    <% intress = @note.prereq.to_s.split(',') %>
+    <% intress = @note.labels.to_s.split(',') %>
  <% for i in 0..(intress.count-1) %>     
-    #<%= @note.prereq.to_s.split(',')[i].strip %>
+    #<%= @note.labels.to_s.split(',')[i].strip %>
   
     <% end %> 
 <br/>                        
@@ -365,47 +366,47 @@ Q.Sprite.extend("Rocket",{
      
      switch(this.p.rocket_no.toString()) {
       case "1":
-           $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+           $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
 
       break;
 
       case "2":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 2} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 2} %>");
 
       break;
 
       case "3":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 3} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 3} %>");
 
       break;
 
       case "4":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 4} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 4} %>");
 
       break;
 
       case "5":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 5} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 5} %>");
 
       break;
 
       case "6":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 6} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 6} %>");
 
       break;
 
       case "7":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 7} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 7} %>");
 
       break;
 
       case "8":
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 8} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 8} %>");
 
       break;
 
       default:
-            $("#loaderofstuff").html("<%= j render 'notes/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
 
 
      }     

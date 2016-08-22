@@ -78,10 +78,9 @@ end
   def create
    @note = Note.new(note_params)
    @note.user_id = current_user.id
-   @hash = AmazonSignature::data_hash
-   @labels = note_params[:prereq].split(",")
+   @labels = note_params[:labels].split(",")
       @labels.each do |intr|
-        Intrest.find_or_create_by(value: intr.strip.to_s)
+        Label.find_or_create_by(name: intr.strip.to_s)
       end  
    
                  if @note.save
@@ -208,7 +207,7 @@ end
 
   private
   def note_params
-   params.require(:note).permit(:name , :prereq , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :_destroy])
+   params.require(:note).permit(:name , :labels , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :_destroy])
   end
   
   def passion_params

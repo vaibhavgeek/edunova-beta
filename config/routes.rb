@@ -5,11 +5,10 @@ devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_call
 
   get 'home/index'
   get 'home/about_us'
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-  # You can have the root of your site routed with "root"
   root 'home#index'
+
   get 'notes/help'
+  get 'notes/my_notes'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -18,8 +17,15 @@ devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_call
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
 
-     resources :feeds , :except => [:new , :create , :edit , :update]
-     
+    resources :feeds , :except => [:new , :create , :edit , :update]
+    get 'feeds/feedback'
+    get 'feeds/newsfeed'
+    get 'feeds/search_people'
+    get 'feeds/invite_people'
+    get 'feeds/following'
+    get 'feeds/followers'
+    get 'feeds/search_results' 
+    get 'feeds/hall_of_fame'
     resources :profiles do
         member do 
           put 'follow_user'

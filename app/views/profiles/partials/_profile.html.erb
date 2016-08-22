@@ -24,7 +24,7 @@
      <% if @user.description.to_s == '' && current_user == @user %> 
     <span class="label label-warning">    
     <%= link_to edit_profile_path(current_user) ,id: 'edit-link' , remote: true do %>
-You have not filled your description. Click here to complete profile. 
+You have not filled your description.Complete profile. 
      <span class="glyphicon glyphicon-edit" ></span> <% end %>
   </span>
 

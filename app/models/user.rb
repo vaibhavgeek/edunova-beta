@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   validates_presence_of :username
   validates_uniqueness_of :username
+  acts_as_voter
   has_many :intrests
   has_many :notes
   has_many :comments

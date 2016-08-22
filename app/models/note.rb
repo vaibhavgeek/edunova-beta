@@ -12,6 +12,7 @@
 #  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  slug             :string
 #
 
 class Note < ActiveRecord::Base
@@ -19,6 +20,10 @@ class Note < ActiveRecord::Base
 	belongs_to :user
 	has_many :comments , :dependent => :destroy
     validates_presence_of :name 
+    acts_as_votable
+  
+      extend FriendlyId
+    friendly_id :name,  use: [:slugged, :finders] 
    
    #Note_Widgets association
     has_many :notewidgets, :dependent => :destroy
