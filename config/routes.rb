@@ -17,7 +17,8 @@ devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_call
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
 
-    resources :feeds , :except => [:new , :create , :edit , :update]
+    resources :feeds , :except => [:new , :create , :show , :edit , :update]
+    get 'feeds/index'
     get 'feeds/feedback'
     get 'feeds/newsfeed'
     get 'feeds/search_people'

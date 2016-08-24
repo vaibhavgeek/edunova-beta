@@ -39,8 +39,8 @@
  <div id="<%= 'arrow' if current_page?(notes_path) %>"> </div> <%= link_to "Learn" , notes_path %></li>
 
 <% if current_user %>
-  <li id="social_nav" class="<%= 'active'  if current_page?(feeds_path) %>">
-   <div id="<%= 'arrow' if current_page?(feeds_path) %>"> </div><%= link_to "Connect" , feeds_path %></li>
+  <li id="social_nav" class="<%= 'active'  if current_page?(feeds_index_path) %>">
+   <div id="<%= 'arrow' if current_page?(feeds_index_path) %>"> </div><%= link_to "Connect" , feeds_index_path %></li>
 
   <li id="profile_nav" class="<%= 'active'  if current_page?(profile_path(current_user)) %>">
     <div id="<%= 'arrow' if current_page?(profile_path(current_user)) %>"> </div>

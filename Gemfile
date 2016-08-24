@@ -9,7 +9,7 @@ gem 'acts-as-taggable-on'
 gem 'will_paginate', '~> 3.0.6'
 # Used for pagination, further script is needed for auto scroll
 gem 'annotate'
-
+gem 'aws-sdk'
 gem 'acts_as_votable'
 # Used for annotating the files. Needs to be called after every migration.
 # This is used for OmniAuth along with devise
