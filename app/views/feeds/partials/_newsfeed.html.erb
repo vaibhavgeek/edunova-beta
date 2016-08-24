@@ -11,7 +11,7 @@
 			<% if feed.user.image_id != nil %>
 					<% if !feed.user.image_id.match(/^http/)  %>
 						
-	<%= attachment_image_tag(feed.user, :image, :fill, 64, 64 ,fallback: "deafult-pic.png") %>
+<%= image_tag feed.user.avatar.url(:thumb) , :class => 'img-circle' %>
 
 					<%else%>
 					<% image_50 = feed.user.image_id.to_s.gsub! '//photo.jpg?sz=50' , '/photo.jpg?sz=64' %>
@@ -20,7 +20,7 @@
 					<% end %>
 
 			<% else %>		
-					<%= attachment_image_tag(feed.user, :image, :fill, 64, 64 ,fallback: "deafult-pic-64.png") %>
+<%= image_tag feed.user.avatar.url(:thumb) , :class => 'img-circle' %>
 
 			<% end %>
 	</div>
