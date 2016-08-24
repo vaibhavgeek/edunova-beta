@@ -1,13 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 config.paperclip_defaults = {
-  storage: :s3,
-  s3_credentials: {
-    bucket: 'paperclip-edunova',
-    access_key_id: 'AKIAIJ3GUAKIQIJTRVAQ',
-    secret_access_key: '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',
-    s3_region: 'ap-south-1',
-  }
+  :storage => :s3,
+  :s3_host_name => 's3.ap-south-1.amazonaws.com',
+  :bucket => 'paperclip-edunova'
 }
 
 
