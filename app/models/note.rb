@@ -19,6 +19,8 @@ class Note < ActiveRecord::Base
 
 	belongs_to :user
 	  validates_presence_of :name 
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+  acts_as_taggable_on :labels
     acts_as_votable
   
       extend FriendlyId

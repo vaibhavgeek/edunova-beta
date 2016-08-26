@@ -69,21 +69,14 @@ end
 
   def create
    @note = Note.new(note_params)
-   @note.user_id = current_user.id
-   @labels = note_params[:labels].split(",")
-      @labels.each do |intr|
-        Label.find_or_create_by(name: intr.strip.to_s)
-      end  
-   
-                 if @note.save
-                   updatefeed = Feed.new(:user_id => current_user.id , :object_id => @note.id  , :set_type => 'create' , :fcontent => @note.note_from_author)           
-                   updatefeed.save   
-                   redirect_to :controller => 'notes', :action => 'show', :id => @note.id
-                 else
-                   render "new"
-                 end
-              
-   
+   @note.user_id = current_user.id 
+     if @note.save
+      updatefeed = Feed.new(:user_id => current_user.id , :object_id => @note.id  , :set_type => 'create' , :fcontent => @note.note_from_author)           
+      updatefeed.save   
+      redirect_to :controller => 'notes', :action => 'show', :id => @note.id
+    else
+      render "new"
+    end
   end
 
 
@@ -199,7 +192,7 @@ end
 
   private
   def note_params
-   params.require(:note).permit(:name , :labels , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :_destroy])
+   params.require(:note).permit(:name , :tag_list , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :_destroy])
   end
   
   def passion_params
