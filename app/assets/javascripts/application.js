@@ -15,4 +15,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require cocoon
+
+//= require quintus
+//= require quintus_2d
+//= require quintus_sprites
+//= require quintus_input
+//= require quintus_audio
+//= require quintus_scenes
+//= require quintus_touch
+//= require quintus_ui
+//= require quintus_anim
+//= require quintus_tmx
+//= require jquery_ujs
 //= require_tree .

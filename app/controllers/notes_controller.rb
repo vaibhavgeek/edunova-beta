@@ -84,8 +84,8 @@ end
       end  
    
                  if @note.save
-                   updatefeed = Feed.new(:user_id => current_user.id , :object_id => @note.id  , :set_type => 'create' , :fcontent => @note.note_from_author)           
-                   updatefeed.save   
+                   # updatefeed = Feed.new(:user_id => current_user.id , :object_id => @note.id  , :set_type => 'create' , :fcontent => @note.note_from_author)           
+                   # updatefeed.save   
                    redirect_to :controller => 'notes', :action => 'show', :id => @note.id
                  else
                    render "new"
