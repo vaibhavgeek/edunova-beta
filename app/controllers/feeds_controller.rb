@@ -4,7 +4,8 @@ class FeedsController < ApplicationController
 def hall_of_fame
  @topusers = User.all.select("users.*, count(user_id) as note_count").joins("LEFT JOIN notes AS notes ON notes.user_id = users.id").group("users.id").order('note_count DESC').limit(10)
 end
-
+def show
+end
   def followers
   	@allfollowers = Relationship.joins('
 INNER JOIN users

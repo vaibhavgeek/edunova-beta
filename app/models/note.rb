@@ -18,8 +18,7 @@
 class Note < ActiveRecord::Base
 
 	belongs_to :user
-	has_many :comments , :dependent => :destroy
-    validates_presence_of :name 
+	  validates_presence_of :name 
     acts_as_votable
   
       extend FriendlyId
@@ -27,6 +26,9 @@ class Note < ActiveRecord::Base
    
    #Note_Widgets association
     has_many :notewidgets, :dependent => :destroy
+    has_many :comments , :dependent => :destroy
+  has_many :notifications , :dependent => :destroy 
+  has_many :feeds ,  foreign_key: "object_id" , :dependent => :destroy
     accepts_nested_attributes_for :notewidgets, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
   
   def self.search(search)

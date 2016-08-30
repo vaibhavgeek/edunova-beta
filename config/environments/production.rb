@@ -1,5 +1,16 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+config.paperclip_defaults = {
+  storage: :s3,
+  s3_credentials: {
+    bucket: 'paperclip-edunova',
+    access_key_id: 'AKIAIJ3GUAKIQIJTRVAQ',
+    secret_access_key: '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',
+    s3_region: 'ap-south-1',
+  }
+}
+
+
   config.action_mailer.default_url_options = { :host => 'edunova.52fzb6kyar.ap-south-1.elasticbeanstalk.com' }
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {

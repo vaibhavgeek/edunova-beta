@@ -23,7 +23,7 @@
 <table>
 <tr>
 <td valign="top">
-	<%= attachment_image_tag(fol.following, :image, :fill, 100, 100 ,fallback: "deafult-pic-100.png") %>
+<%= image_tag feed.user.avatar.url(:thumb) , :class => 'img-circle' %>
 
 </td>
 <td style="padding-left:10px;" valign="top">

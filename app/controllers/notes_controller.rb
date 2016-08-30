@@ -20,8 +20,6 @@ class NotesController < ApplicationController
     @notes_filter = Note.all.paginate(:per_page => 25, :page => params[:page]) 
  end
 
-
-
 def discover 
   @passion = Passion.new
   @allpassion = Passion.all
@@ -64,14 +62,8 @@ end
 
   def destroy
     @note = Note.friendly.find(params[:id])
-    @deletefeed = Feed.where(:object_id => @note.id)
-    @deletecommets = Comment.where(:note_id => @note.id )
-    @deletenotifications = Notification.where(:note_id => @note.id)
-    @deletefeed.destroy_all
-    @deletecommets.destroy_all
-    @deletenotifications.destroy_all
     @note.destroy
-    @mynotes = Note.where(:user_id => current_user.id).paginate(:per_page => 7, :page => params[:page])
+    @mynotes = Note.where(:user_id => current_user.id)
   end
 
 

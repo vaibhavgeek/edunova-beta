@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  object_id  :integer
-#  type       :string
+#  set_type   :string
 #  fcontent   :string
 #  comment_id :integer
 #  created_at :datetime         not null
