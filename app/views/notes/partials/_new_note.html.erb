@@ -1,3 +1,38 @@
+<script type="text/javascript">
+    var engine = new Bloodhound({
+  
+  datumTokenizer: function(d) {
+    return Bloodhound.tokenizers.obj.whitespace(d.name);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+   remote: {
+    url: '/profiles/intrests/%QUERY.json',
+     filter: function (engine) {
+            // Map the remote source JSON array to a JavaScript object array
+            return $.map(engine, function (intrest) {
+                return {
+                    value: intrest.name
+                };
+            });
+        }
+  }
+});
+engine.initialize();
+$('#prerequisites').tokenfield({
+  typeahead: [null, { displayKey: 'value', source: engine.ttAdapter() }]
+});
+$('#prerequisites').on('tokenfield:createtoken', function (event) {
+    var existingTokens = $(this).tokenfield('getTokens');
+    $.each(existingTokens, function(index, token) {
+        if (token.value === event.attrs.value)
+            event.preventDefault();
+    });
+  });
+    
+    
+ 
+</script>
+
 <center><h1>create new note</h1></center>
  <%= form_for @note  do |naw| %>
          
@@ -64,39 +99,3 @@ Add widget to Note:-    <br/> <br/>
  </div>
 
 
-
-<script type="text/javascript">
-var engine = new Bloodhound({
-  
-  datumTokenizer: function(d) {
-    return Bloodhound.tokenizers.obj.whitespace(d.value);
-  },
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-   remote: {
-    url: '/profiles/intrests/%QUERY.json',
-     filter: function (engine) {
-            // Map the remote source JSON array to a JavaScript object array
-            return $.map(engine, function (intrest) {
-                return {
-                    value: intrest.value
-                };
-            });
-        }
-  }
-
-});
-
-engine.initialize();
-$('#prerequisites').tokenfield({
-  typeahead: [null, { displayKey: 'value', source: engine.ttAdapter() }]
-});
-
-$('#prerequisites').on('tokenfield:createtoken', function (event) {
-    var existingTokens = $(this).tokenfield('getTokens');
-    $.each(existingTokens, function(index, token) {
-        if (token.value === event.attrs.value)
-            event.preventDefault();
-    });
-});
-
-</script>

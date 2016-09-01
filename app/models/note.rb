@@ -18,20 +18,17 @@
 class Note < ActiveRecord::Base
 
 	belongs_to :user
-	  validates_presence_of :name 
+	validates_presence_of :name 
   acts_as_taggable # Alias for acts_as_taggable_on :tags
   acts_as_taggable_on :labels
-    acts_as_votable
-  
-      extend FriendlyId
-    friendly_id :name,  use: [:slugged, :finders] 
-   
-   #Note_Widgets association
-    has_many :notewidgets, :dependent => :destroy
-    has_many :comments , :dependent => :destroy
+  acts_as_votable
+  extend FriendlyId
+  friendly_id :name,  use: [:slugged, :finders] 
+  has_many :notewidgets, :dependent => :destroy
+  has_many :comments , :dependent => :destroy
   has_many :notifications , :dependent => :destroy 
   has_many :feeds ,  foreign_key: "object_id" , :dependent => :destroy
-    accepts_nested_attributes_for :notewidgets, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :notewidgets, :reject_if => lambda { |a| a[:tag_one].blank? }, :allow_destroy => true
   
   def self.search(search)
   	if search

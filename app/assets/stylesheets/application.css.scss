@@ -1,8 +1,12 @@
 @import "edunova_768.css.scss";
 @import "edunova_992.css.scss";
 @import "edunova_528.css.scss";
+@import "medium-editor.css";
+@import "default.css";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-tokenfield.css";
+@import "bootstrap-typeahead-rails.css";
 @import "edunova_main.css.scss";
 @import "font-awesome";
 @import "btn-social";
@@ -18,8 +22,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
- *= require bootstrap-theme
- *= require btn-social
+ *= application
+ *= require bootstrap-select
  */

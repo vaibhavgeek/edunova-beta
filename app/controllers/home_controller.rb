@@ -5,7 +5,6 @@ class HomeController < ApplicationController
 		@unread_count = @notifications.where(read: 0).count
 	end
    @notes_filter = Note.all.paginate(:per_page => 15, :page => params[:page]).order('created_at DESC') 
-   @labels = Label.where(:edunova_cert => 1)  	
   end
   def mark_as_read
    @notifications = Notification.where(:to_id => current_user ).where.not(:from_id => current_user)

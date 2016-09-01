@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap-typeahead-rails'
 # Used for having clean code for proper funtioning. 
+gem 'bootstrap_tokenfield_rails'
+gem 'twitter-typeahead-rails'
 gem 'draper'	
 gem 'friendly_id'
 gem 'paperclip'

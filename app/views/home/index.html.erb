@@ -1,5 +1,6 @@
-<% if !current_user %>
+
 <div class="col-md-4">
+<% if !current_user %>
 <div class="account-wall panel">
 
  <h1 class="text-center login-title">Sign in to continue to Edunova</h1>
@@ -42,11 +43,55 @@
             </form>
 
 </div>
-</div>
 <% end %>
-<div class=" <%= current_user ? 'col-md-12' : 'col-md-8' %> ">
+<% else %>
+<div class="panel">
+  <table style="width: 100%">
+<tr>
+  <td>
+    <h3>notifications  
+ <span id="unread_count" class="badge"><%= @unread_count %></span>
+    </h3>
+  </td>
+  <td align="right" valign="bottom">
+<%= link_to "mark as read" , home_mark_as_read_path , :method => :put ,:remote => 'true' %>  </td>
+</tr>
+</table>
+<div class="list-group">
+  <% if @notifications.count == 0 %>
+  <div class="alert alert-success" role="alert">
+hey! no notifications right now. 
+</div>
+<div class="alert alert-warning" role="alert">
+ new to edunova.io? learn how to use it.
+
+
+  </div>
+
+  <% end %>
+  <div id="heretoappendnoti">
+<%= render ("/home/partials/notifications") %>
+</div>
+
+</div>
+</div>
+</div>
+<div class="col-md-8">
 <div class="panel"> 
-Hello
+
+<div id="tag_cloud">
+  <% tag_cloud Note.tag_counts, %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+</div>
+<% @notes_filter.each do |note| %>
+<h2> <%= link_to note.name , note_path(note) %> </h2>
+<%= simple_format note.note_from_author %>
+Labels: <%= raw note.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+
+<% end %>
+
+
 </div>
 
 </div>

@@ -12,7 +12,11 @@
 //
 //= require jquery
 //= require bootstrap-sprockets
+//= require medium-editor
 //= require jquery_ujs
 //= require turbolinks
 //= require cocoon
+//= require bootstrap-tokenfield
+//= require twitter/typeahead
+//= require bootstrap-typeahead-rails
 //= require_tree .

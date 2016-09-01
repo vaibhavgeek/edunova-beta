@@ -8,17 +8,16 @@ class ProfilesController < ApplicationController
      @delfed = Feed.find(params[:id])
      @delfed.destroy
   end
-=begin 
   def intrests
     if params[:query].to_s != 'allint'
     str = params[:query].to_s
-    @search  = Intrest.select(:value , :id).where('lower(value) like ?', %(%#{str.downcase}%))
+    @search  = ActsAsTaggableOn::Tag.most_used.select(:name , :id).where('lower(name) like ?', %(%#{str.downcase}%))
     else
-    @search  = Intrest.select(:value , :id).all
+    @search  = ActsAsTaggableOn::Tag.most_used.select(:name , :id)
     end
     render json: @search
   end
-
+=begin
   def all_people
     if params[:query].to_s != 'allint'
     str = params[:query].to_s

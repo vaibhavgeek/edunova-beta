@@ -17,9 +17,9 @@
 	<% else %>
 	<div id="appendfl">
 		<% if @boolrel == 1 %>
-		 <%= render 'destroy_follow_user' %>
+		 <%= render '/profiles/partials/destroy_follow_user' %>
 		<% elsif @boolrel == 0 %>
-		<%= render 'follow_user' %>
+		<%= render '/profiles/partials/follow_user' %>
 		<% end %>
 	</div>
 	

@@ -57,6 +57,9 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-typeahead-rails (0.10.5.1)
+      railties (>= 3.0)
+    bootstrap_tokenfield_rails (0.12.1)
     builder (3.2.2)
     byebug (9.0.5)
     climate_control (0.0.3)
@@ -206,9 +209,13 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
-    turbolinks (5.0.0)
+    turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
+    twitter-typeahead-rails (0.11.1)
+      actionpack (>= 3.1)
+      jquery-rails
+      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.0)
@@ -231,6 +238,8 @@ DEPENDENCIES
   annotate
   aws-sdk
   bootstrap-sass
+  bootstrap-typeahead-rails
+  bootstrap_tokenfield_rails
   byebug
   cocoon
   coffee-rails (~> 4.1.0)
@@ -251,6 +260,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   turbolinks
+  twitter-typeahead-rails
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   will_paginate (~> 3.0.6)

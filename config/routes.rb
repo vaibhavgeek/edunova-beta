@@ -2,10 +2,12 @@
 
 devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" ,  registrations: "users/registrations"}
 
-
+  get 'profiles/intrests/:query' => 'profiles#intrests'
   get 'home/index'
   get 'home/about_us'
   root 'home#index'
+  get 'tags/:tag', to: 'home#index', as: :tag
+  put 'home/mark_as_read'
 
   get 'notes/help'
   get 'notes/my_notes'
