@@ -2,7 +2,6 @@
 <div class="col-md-4">
 <% if !current_user %>
 <div class="account-wall panel">
-
  <h1 class="text-center login-title">Sign in to continue to Edunova</h1>
 <%= form_for resource,   as: resource_name , url: session_path(resource_name) , html: { class: "form-signin" }  do |f| %>
  <%= render "devise/shared/links" %>
@@ -43,7 +42,7 @@
             </form>
 
 </div>
-<% end %>
+
 <% else %>
 <div class="panel">
   <table style="width: 100%">
@@ -75,6 +74,7 @@ hey! no notifications right now.
 
 </div>
 </div>
+<% end %>
 </div>
 <div class="col-md-8">
 <div class="panel"> 
