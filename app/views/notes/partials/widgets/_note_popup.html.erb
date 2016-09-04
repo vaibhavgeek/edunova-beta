@@ -1,8 +1,9 @@
-<% @toload =  @widgets[params[:level_load].to_i - 1] %>
-<% if @toload.type == 'article' %>
-<%= @toload.content.html_safe %>
+<%@nums =  params[:level_load].to_i - 1 %>
+<% @toload = @note.notewidgets[@nums] %>
+<% if @toload.set_type == 'article' %>
+<%= @toload.tag_one.html_safe %>
 
-<% elsif @toload.type == 'applet' %>
+<% elsif @toload.set_type == 'applet' %>
 You'll implement a particular sorting algorithm in a moment. But as a warmup, here is a sorting problem to play with. You can swap any pair of cards by clicking on one card, and then the other. Swap cards until the cards are sorted with with smallest card on the left.
 <iframe width="900px" height="250px" srcdoc="
       <!doctype html>
@@ -10,7 +11,7 @@ You'll implement a particular sorting algorithm in a moment. But as a warmup, he
         <head>
           <script>
             (function () {
-              window.addEventListener('DOMContentLoaded', function () {
+              window.addEventListener('DOMtag_oneLoaded', function () {
                 window.parent.postMessage(JSON.stringify({
                   type: 'jotted-dom-ready'
                 }), '*')
@@ -233,17 +234,17 @@ draw.viewbox(0, 0, draw.bbox().width, draw.bbox().height);
       </html>
     "></iframe>
 
-<% elsif @toload.type == 'question' %>
+<% elsif @toload.set_type == 'question' %>
 
 <div class="col-md-8 col-md-offset-2 questions">
 <div class="well">
-<h3><%= @toload.question_text %> </h3>
+<h3><%= @toload.tag_one %> </h3>
       
 <ul class="list-group">
-    <label><li class="list-group-item"  onclick  = '$(".questions .active").removeClass("active");$(this).addClass("active");' ><%= radio_button_tag 'option', "option1" %> <%= @toload.option1 %> </li> </label>
-     <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'><%= radio_button_tag 'option', "option2" %> <%= @toload.option2 %></li></label>
-      <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'> <%= radio_button_tag 'option' , "option3" %> <%= @toload.option3 %></li></label> 
-      <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'> <%= radio_button_tag 'option' , "option4" %> <%= @toload.option4 %> </li></label>
+    <label><li class="list-group-item"  onclick  = '$(".questions .active").removeClass("active");$(this).addClass("active");' ><%= radio_button_tag 'option', "option1" %> <%= @toload.tag_four %> </li> </label>
+     <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'><%= radio_button_tag 'option', "option2" %> <%= @toload.tag_five %></li></label>
+      <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'> <%= radio_button_tag 'option' , "option3" %> <%= @toload.tag_six %></li></label> 
+      <label><li class="list-group-item"  onclick  =  '$(".questions .active").removeClass("active");$(this).addClass("active");'> <%= radio_button_tag 'option' , "option4" %> <%= @toload.tag_seven %> </li></label>
      </ul>
 <%= link_to "Submit" ,'#' , :class => 'btn btn-primary pull-right' %>
 <br/><br/>

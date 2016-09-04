@@ -38,6 +38,8 @@ def html_view
   else
   @note = Note.friendly.find(params[:note_id])
   end  
+  @widgets  = @note.notewidgets
+  @cnt = 0
   
 end
 

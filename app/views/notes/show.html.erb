@@ -114,7 +114,6 @@
                         </h3>
 <b>Labels : </b>
    <%= raw @note.tag_list.map { |t| link_to t, tag_path(t) }.join(' , ') %>
-
 <br/>                        
                        
     <%= @note.note_from_author %>
@@ -128,19 +127,28 @@
 
 
 <div id="mainconnote">
-     <% if @note.description.to_s != 'insight' %>
-
+   
   <div id="tohihe">
 
 <div id='loading'>
-     <div class="progress">
-  <div class="progress-bar progress-bar-striped active" role="progressbar"
-  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-    loading...
-  </div>
-</div>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped active" role="progressbar"
+      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+      loading...
+      </div>
     </div>
+</div>
+<div id='start_game' class="well" style="margin:30px;">
+ <center>
+ <p> Your mission is about to begin . Are you thrilled to take up this adventure ?<p>
+  <button type="button" class="btn btn-default btn-lg" onclick="load_game()">
+    <span class="glyphicon glyphicon-play-circle"></span> Play Note
+  </button>
+  <%= link_to note_html_view_path(@note) , remote: :true , class: "btn btn-default btn-lg" do %>
+ <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  <% end %>
 
+  </center>
+</div>
 <div id='b' class='panel col-sm-7'> 
  <div id="loaderofstuff">
  I thought a lot about what to give you this year. James — well, James has been going
@@ -170,9 +178,6 @@ luck I’ve found it and just tried to hold it and I wondered if you .
           </p>  
 
 </div>
-<% else %>
-<%= render 'html_view'  %>
-<% end %>
 </div>
   <div id="comments" class="col-lg-8" >
 </div>
@@ -184,25 +189,33 @@ luck I’ve found it and just tried to hold it and I wondered if you .
 
 <script type="text/javascript">
 
-<% n="level1" %> // no. of widgets
+<% n="level" + @note.notewidgets.count.to_s %> // no. of widgets
 <% ext='.tmx' %> // extension
-
+$(document).ready(function(){
+  $('#loading').hide();
+  $('.bubble').hide();
+  $('#b').hide();
+});
+function load_game()
+{
+  $('#loading').show();
+  $('#start_game').hide();
 <% current_rocket = 1 %>
 no_rockets=8;
-            $('#b').show(function(){
+            // $('#b').show(function(){
               
-              $('#close_modal').hide();
-              // function explode(){
-              //       Q.pauseGame();
-              //       $('#close_modal').show();
-              //   }
-              //  setTimeout(explode, 2000);
-            });
+            //   $('#close_modal').hide();
+            //   // function explode(){
+            //   //       Q.pauseGame();
+            //   //       $('#close_modal').show();
+            //   //   }
+            //   //  setTimeout(explode, 2000);
+            // });
  
 
 function message(msg_no)
 {
-  var msg=["hey @<%= current_user.username %>! Your aim is to rescue thetrapped humans<br>  from the evil aliens by launching the rockets. Good luck!","Aliens tried to restrict you from reading the note <br>. Read the widget thoroughly before continuing!"," hint"," You are doing a great job <%= current_user.username %> ! Only " +no_rockets+ " left to be rescued!"];
+  var msg=["hey @<%= current_user.username %>! Your aim is to rescue the trapped humans <br>  from the evil aliens by launching the rockets. Good luck!","Aliens tried to restrict you from reading the note <br>. Read the widget thoroughly before continuing!"," hint"," You are doing a great job <%= current_user.username %> ! Only " +no_rockets+ " left to be rescued!"];
  //$('.bubble').innerHTML=msg[1];
 
   $('.bubble').fadeIn(function(){
@@ -213,6 +226,8 @@ function message(msg_no)
    }
    $('.bubble').delay( 5000 ).fadeOut(2000);
 
+ //else
+  ////////////////////  hint for questions
   });
   $('#close_x').click(function(){
   $('.bubble').hide();
@@ -379,47 +394,47 @@ Q.Sprite.extend("Rocket",{
      
      switch(this.p.rocket_no) {
       case 1:
-           $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+           $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
 
       break;
 
       case 2:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 2} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 2} %>");
 
       break;
 
       case 3:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 3} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 3} %>");
 
       break;
 
       case 4:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 4} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 4} %>");
 
       break;
 
       case 5:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 5} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 5} %>");
 
       break;
 
       case 6:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 6} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 6} %>");
 
       break;
 
       case 7:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 7} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 7} %>");
 
       break;
 
       case 8:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 8} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 8} %>");
 
       break;
 
       default:
-            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
 
 
      }     
@@ -431,8 +446,18 @@ Q.Sprite.extend("Rocket",{
            startx=collision.obj.p.x+160;
            starty=collision.obj.p.y;
             this.play("fly");
-      //    $("#b").show();  
+
             var pause=0;
+      //    $("#b").show();  
+      $('#b').show(function(){
+              
+              $('#close_modal').hide();
+              setTimeout(function(){ if(!pause) 
+                {
+                  Q.pauseGame();
+                 $('#close_modal').show(); }
+                   }, 2000);
+            });
            $('#close_modal').click(function(){
                   message(1);
                   $('#b').hide(); 
@@ -588,6 +613,6 @@ Q.loadTMX( "<%= asset_path(n+ext) %>,<%= asset_path('main.json') %>,<%= asset_pa
 });
 
 
-
+}
 </script>
 

@@ -11,7 +11,7 @@
 
 <%= link_to note_display_widgets_path(:note_id => @note , :level_load =>@cnt , :widget => 'someshit') , :class => 'btn btn-default' , :remote => true do %>
 
-  #<%= @cnt %> <br/><label class="label label-success"> <%= wid.type %>  </span>
+  #<%= @cnt %> <br/><label class="label label-success"> <%= wid.set_type %>  </span>
 
 
   <% end %>
@@ -24,7 +24,7 @@
 <br/>
 <div id ="loadnot">
 <% params[:level_load] = 1%>
-<%= render 'notes/widgets/note_popup' %>
+<%= render 'notes/partials/widgets/note_popup' %>
 </div>
 
 
