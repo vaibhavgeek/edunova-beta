@@ -49,6 +49,8 @@ devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_call
       resources :notes do
         get 'game_view'
         get 'display_widgets'
+        get 'comment_view'
+        get 'html_view'
         resources :comments 
         member do
             put "like", to: "notes#upvote"

@@ -33,7 +33,6 @@ def add_passion
 end
 
 def html_view
- 
   if params[:id]
   @note = Note.friendly.find(params[:id])
   else
@@ -71,6 +70,7 @@ end
    @note = Note.new(note_params)
    @note.user_id = current_user.id 
      if @note.save
+      note_params[:notewidgets_attributes][:note_id] = @note.id
       updatefeed = Feed.new(:user_id => current_user.id , :object_id => @note.id  , :set_type => 'create' , :fcontent => @note.note_from_author)           
       updatefeed.save   
       redirect_to :controller => 'notes', :action => 'show', :id => @note.id
@@ -192,7 +192,7 @@ end
 
   private
   def note_params
-   params.require(:note).permit(:name , :tag_list , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :_destroy])
+   params.require(:note).permit(:name , :tag_list , :note_from_author ,:notewidgets_attributes => [:id , :note_id , :tag_one ,:tag_two ,:tag_three , :tag_four , :tag_five , :tag_six , :tag_seven , :set_type , :_destroy])
   end
   
   def passion_params

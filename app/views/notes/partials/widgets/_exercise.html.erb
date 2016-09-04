@@ -1,27 +1,28 @@
   <div class="exercise-wrapper">
   <%= f.label :"Add Question" %>
-  
+  <%= f.text_field :set_type , :value => "question" , :style => "display:none;" %>  
+
   <div class="row"> 
 
 <div class="col-md-2"> <b>Type Question  </b></div>
-<div class="col-md-10"> <%= f.text_area :question_text  , :class => "form-control" %> </div>
+<div class="col-md-10"> <%= f.text_area :tag_one  , :class => "form-control" %> </div>
 </div> <br/>
 <div class="row">
 <div class="col-md-2"> <b> Hint </b> </div>
-<div class="col-md-10"><%= f.text_area :hint , :class => "form-control" %> </div>
+<div class="col-md-10"><%= f.text_area :tag_two , :class => "form-control" %> </div>
 </div> <br/>
 <div class="row">
 
-  <%= f.radio_button :correct_answer, 'option3' , :style => 'display:none'  %>
-  <%= f.radio_button :correct_answer, 'option4' , :style => 'display:none'  %>
+  <%= f.radio_button :tag_three, 'option3' , :style => 'display:none'  %>
+  <%= f.radio_button :tag_three, 'option4' , :style => 'display:none'  %>
 
 <div class="col-md-2"> <b> Option 1 </b></div>
 <div class="col-md-4"> 
 <div class="input-group"> <span class="input-group-addon"> 
-  <%= f.radio_button :correct_answer, 'option1'  %>
+  <%= f.radio_button :tag_three, 'option1'  %>
 
  </span> 
-<%= f.text_field :option1 , :class => "form-control"%>
+<%= f.text_field :tag_four , :class => "form-control"%>
  </div>
 
 
@@ -29,10 +30,10 @@
 <div class="col-md-2"> <b> Option 2 </b></div>
 <div class="col-md-4"> 
 <div class="input-group"> <span class="input-group-addon"> 
-  <%= f.radio_button :correct_answer, 'option2'  %>
+  <%= f.radio_button :tag_three, 'option2'  %>
 
  </span> 
-<%= f.text_field :option2 , :class => "form-control"%>
+<%= f.text_field :tag_five , :class => "form-control"%>
  </div>
 </div>
  </div><br/>
@@ -40,25 +41,25 @@
  <div class="col-md-2"> <b> Option 3 </b></div>
 <div class="col-md-4"> 
 <div class="input-group"> <span class="input-group-addon"> 
-  <%= f.radio_button :correct_answer, 'option3'  %>
+  <%= f.radio_button :tag_three, 'option3'  %>
 
  </span> 
-<%= f.text_field :option3 , :class => "form-control"%>
+<%= f.text_field :tag_six , :class => "form-control"%>
  </div>
 </div>
  <div class="col-md-2"> <b> Option 4 </b></div>
 <div class="col-md-4"> <div class="input-group"> <span class="input-group-addon"> 
-  <%= f.radio_button :correct_answer, 'option4'  %>
+  <%= f.radio_button :tag_three, 'option4'  %>
 
  </span> 
-<%= f.text_field :option4 , :class => "form-control"%>
+<%= f.text_field :tag_seven , :class => "form-control"%>
  </div></div>
  
  </div> <br/>
  <div class="row"> 
 
 <div class="col-md-2"> <b> Explain Solution  </b></div>
-<div class="col-md-10"> <%= f.text_area :solution_explain  , :class => "form-control" %> </div>
+<div class="col-md-10"> <%= f.text_area :tag_eight  , :class => "form-control" %> </div>
 </div>
 
 

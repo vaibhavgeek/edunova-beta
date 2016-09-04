@@ -4,8 +4,8 @@
   <%= f.label :"Add Article" %>
 
     <br/>
-    <%= f.text_area :tag_one , cols: "30", rows: "10" , :class => 'editable' %>
-  
+    <%= f.text_area :tag_one , cols: "30", rows: "10" , :class => 'editable' , :style => "min-height:100px;border-color: black;" %>
+<%= f.text_field :set_type , :value => "article" , :style => "display:none;" %>  
   <%= link_to_remove_association "Remove Article", f , {wrapper_class: 'widge-wrapper' ,  :class => 'btn btn-danger'} %>
   <br/> <br/> 
   </div>

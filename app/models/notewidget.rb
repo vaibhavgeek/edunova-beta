@@ -14,7 +14,7 @@
 #  tag_eight  :string
 #  tag_nine   :string
 #  tag_ten    :string
-#  type       :string
+#  set_type   :string
 #  certified  :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

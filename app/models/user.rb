@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username,  use: [:slugged, :finders] 
   validates :username, format: { with: /\A[a-z0-9\-_]+\z/i  }
-  has_attached_file :avatar, styles: { medium: "170x120>", thumb: "64x64>" }, default_url: "/assets/deafult-pic-130.png"
+  has_attached_file :avatar, styles: { medium: "170x120>", thumb: "64x64>" }, default_url: "/assets/deafult-pic-64.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   validates_presence_of :username
   validates_uniqueness_of :username

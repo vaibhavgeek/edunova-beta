@@ -89,6 +89,16 @@ Add widget to Note:-    <br/> <br/>
  <li role="presentation">
                <%= link_to_add_association 'Add Article', naw, :notewidgets  , :partial => 'notes/partials/widgets/widget' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
 </li>
+<li role="presentation">
+               <%= link_to_add_association 'Add Question', naw, :notewidgets  , :partial => 'notes/partials/widgets/exercise' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+
+<li role="presentation">
+               <%= link_to_add_association 'Add Video', naw, :notewidgets  , :partial => 'notes/partials/widgets/widget' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+<li role="presentation">
+               <%= link_to_add_association 'Add Applet', naw, :notewidgets  , :partial => 'notes/partials/widgets/applet' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
 </ul>
     
 

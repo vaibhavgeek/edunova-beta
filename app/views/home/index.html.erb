@@ -81,13 +81,13 @@ hey! no notifications right now.
 
 <div id="tag_cloud">
   <% tag_cloud Note.tag_counts, %w[s m l] do |tag, css_class| %>
-    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+    <%= link_to tag.name.to_s + "(" +tag.count.to_s + ")", tag_path(tag.name), class: css_class %>  &nbsp;&nbsp; 
   <% end %>
 </div>
 <% @notes_filter.each do |note| %>
-<h2> <%= link_to note.name , note_path(note) %> </h2>
+<h3> <%= link_to note.name , note_path(note) %> </h3>
 <%= simple_format note.note_from_author %>
-Labels: <%= raw note.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+Labels: <%= raw note.tag_list.map { |t| link_to t, tag_path(t) }.join(' , ') %>
 
 <% end %>
 

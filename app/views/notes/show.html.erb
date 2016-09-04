@@ -15,7 +15,7 @@
 
 <%= link_to note_game_view_path(@note) , remote: :true , class: "btn btn-default btn-sm" do %>
  <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Game  <% end %>
-<%= link_to "note_html_view_path(@note)" , remote: :true , class: "btn btn-default btn-sm" do %>
+<%= link_to note_html_view_path(@note) , remote: :true , class: "btn btn-default btn-sm" do %>
  <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  <% end %>
 
 <%= link_to profile_path(@note.user) , class: "btn btn-default btn-sm" do %>
@@ -27,7 +27,7 @@
 
 
 <div class="btn-group">
-    <%= link_to  "note_comment_view_path(@note)"  ,:class => 'btn btn-primary btn-sm' , :remote => true do %> 
+    <%= link_to  note_comment_view_path(@note)  ,:class => 'btn btn-primary btn-sm' , :remote => true do %> 
      <span class="glyphicon glyphicon-comment
 " aria-hidden="true"></span> conversation 
  <span class="badge" id="comment_count"><%= @note.comments.count %>
@@ -112,12 +112,9 @@
 
 
                         </h3>
-<b>labels : </b>
-    <% intress = @note.labels.to_s.split(',') %>
- <% for i in 0..(intress.count-1) %>     
-    #<%= @note.labels.to_s.split(',')[i].strip %>
-  
-    <% end %> 
+<b>Labels : </b>
+   <%= raw @note.tag_list.map { |t| link_to t, tag_path(t) }.join(' , ') %>
+
 <br/>                        
                        
     <%= @note.note_from_author %>
@@ -146,7 +143,21 @@
 
 <div id='b' class='panel col-sm-7'> 
  <div id="loaderofstuff">
- 
+ I thought a lot about what to give you this year. James — well, James has been going
+on about the Invisibility Cloak since time itself, and Lily — I knew she’d love wings —
+but you. You’re fourteen years old now, Albus, and I wanted to give you something
+which — meant something. This . . . is the last thing I had from my mum. The only thing.
+I was given to the Dursleys wrapped in it. I thought it had gone forever and then, when
+your great-aunt Petunia died, hidden amongst her possessions, surprisingly, Dudley
+found this and he kindly sent it on to me, and ever since then — well, anytime I’ve wanted
+luck I’ve found it and just tried to hold it and I wondered if you .I thought a lot about what to give you this year. James — well, James has been going
+on about the Invisibility Cloak since time itself, and Lily — I knew she’d love wings —
+but you. You’re fourteen years old now, Albus, and I wanted to give you something
+which — meant something. This . . . is the last thing I had from my mum. The only thing.
+I was given to the Dursleys wrapped in it. I thought it had gone forever and then, when
+your great-aunt Petunia died, hidden amongst her possessions, surprisingly, Dudley
+found this and he kindly sent it on to me, and ever since then — well, anytime I’ve wanted
+luck I’ve found it and just tried to hold it and I wondered if you .
  </div>
       <div class="footermodal">
         <button type="button" class="btn btn-default" id='close_modal' data-dismiss="modal">Close</button>
@@ -172,16 +183,20 @@
       
 
 <script type="text/javascript">
+
+<% n="level1" %> // no. of widgets
+<% ext='.tmx' %> // extension
+
 <% current_rocket = 1 %>
 no_rockets=8;
             $('#b').show(function(){
               
               $('#close_modal').hide();
-              function explode(){
-                    Q.pauseGame();
-                    $('#close_modal').show();
-                }
-               setTimeout(explode, 2000);
+              // function explode(){
+              //       Q.pauseGame();
+              //       $('#close_modal').show();
+              //   }
+              //  setTimeout(explode, 2000);
             });
  
 
@@ -198,8 +213,6 @@ function message(msg_no)
    }
    $('.bubble').delay( 5000 ).fadeOut(2000);
 
- //else
-  ////////////////////  hint for questions
   });
   $('#close_x').click(function(){
   $('.bubble').hide();
@@ -364,43 +377,43 @@ Q.Sprite.extend("Rocket",{
   if(collision.obj.isA("Player"))
   {   
      
-     switch(this.p.rocket_no.toString()) {
-      case "1":
+     switch(this.p.rocket_no) {
+      case 1:
            $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
 
       break;
 
-      case "2":
+      case 2:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 2} %>");
 
       break;
 
-      case "3":
+      case 3:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 3} %>");
 
       break;
 
-      case "4":
+      case 4:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 4} %>");
 
       break;
 
-      case "5":
+      case 5:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 5} %>");
 
       break;
 
-      case "6":
+      case 6:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 6} %>");
 
       break;
 
-      case "7":
+      case 7:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 7} %>");
 
       break;
 
-      case "8":
+      case 8:
             $("#loaderofstuff").html("<%= j render 'notes/partials/widgets/game_content_popup' , :locals => {:widget => 8} %>");
 
       break;
@@ -493,11 +506,11 @@ Q.Sprite.extend("Coin",{
 Q.scene("level",function(stage) {
 if(initial)
 {
-  cnt=0,startx=400,starty=800;
+  cnt=0,startx=400,starty=860;
     message(0);
 }
 //stage.insert(new Q.Repeater({ asset: "back.png",repeatY:true, speedX: 10, speedY: 0.5 })); 
-  Q.stageTMX("<%= asset_path('level.tmx') %>",stage);
+  Q.stageTMX("<%= asset_path(n+ext) %>",stage);
   var player = stage.insert(new Q.Player({x:startx,y:starty,stage:stage}));
    stage.add("viewport").follow(player);
 stage.viewport.offsetX=-200;
@@ -529,12 +542,13 @@ Q.scene('endGame',function(stage) {
  
         container.fit(20);
 });
+//Q.loadTMX("");
 
-Q.loadTMX( "<%= asset_path('level.tmx') %>,<%= asset_path('main.json') %>,<%= asset_path('main.png') %>,<%= asset_path('enemies.png') %>,<%= asset_path('enemies.json') %>,<%= asset_path('bird.json') %>,<%= asset_path('bird.png') %>,<%= asset_path('pole.json') %>,<%= asset_path('pole.png') %>,<%= asset_path('collectables.json') %>,<%= asset_path('collectables.png') %>,<%= asset_path('rocket.json') %>,<%= asset_path('rocket.png') %>,<%= asset_path('hit.mp3') %>,<%= asset_path('hit(1).mp3') %>,<%= asset_path('coin.mp3') %>,<%= asset_path('intro.mp3') %>", function() {
+Q.loadTMX( "<%= asset_path(n+ext) %>,<%= asset_path('main.json') %>,<%= asset_path('main.png') %>,<%= asset_path('enemies.png') %>,<%= asset_path('enemies.json') %>,<%= asset_path('collectables.json') %>,<%= asset_path('collectables.png') %>,<%= asset_path('rocket.json') %>,<%= asset_path('rocket.png') %>", function() {
   Q.compileSheets("door.png","door.json");
   Q.compileSheets("main.png","main.json");
  Q.compileSheets("<%= asset_path('enemies.png') %>","<%= asset_path('enemies.json') %>");
- Q.compileSheets("pole.png","pole.json");
+ //Q.compileSheets("pole.png","pole.json");
  Q.compileSheets("<%= asset_path('collectables.png') %>","<%= asset_path('collectables.json') %>");
  Q.compileSheets("<%= asset_path('rocket.png') %>","<%= asset_path('rocket.json') %>");
         Q.animations('player', {
@@ -576,5 +590,4 @@ Q.loadTMX( "<%= asset_path('level.tmx') %>,<%= asset_path('main.json') %>,<%= as
 
 
 </script>
-
 
