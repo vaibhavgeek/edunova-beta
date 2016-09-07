@@ -138,17 +138,26 @@
       </div>
     </div>
 </div>
-<div id='start_game' class="well" style="margin:30px;">
+<div id='start_game' style="margin:30px;">
  <center>
  <p> Your mission is about to begin . Are you thrilled to take up this adventure ?<p>
-  <button type="button" class="btn btn-default btn-lg" onclick="load_game()">
-    <span class="glyphicon glyphicon-play-circle"></span> Play Note
-  </button>
-  <%= link_to note_html_view_path(@note) , remote: :true , class: "btn btn-default btn-lg" do %>
- <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  <% end %>
+ <div class="row">
+     <div class="col-sm-6 well" style="cursor:pointer;" onclick="load_game()">
+     <%= image_tag('rocket-animation.gif',:width=>'250px' ,:style=>'border-radius:20%') %><br>
+            <button type="button" class="btn btn-default btn-lg" >
+              <span class="glyphicon glyphicon-play-circle"></span> Play Note
+            </button>
+      </div>
 
-  </center>
-</div>
+      
+      <%= link_to note_html_view_path(@note) , remote: :true , class: "well col-sm-6" do %>
+      <%= image_tag('read.gif',:width=>'250px' ,:style=>'border-radius:20%') %><br>
+      <button type="button" class="btn btn-default btn-lg">
+     <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  
+    </button><% end %>
+      </center>
+    </div>
+    
 <div id='b' class='panel col-sm-7'> 
  <div id="loaderofstuff">
  I thought a lot about what to give you this year. James — well, James has been going
@@ -216,7 +225,6 @@ no_rockets=8;
 function message(msg_no)
 {
   var msg=["hey @<%= current_user.username %>! Your aim is to rescue the trapped humans <br>  from the evil aliens by launching the rockets. Good luck!","Aliens tried to restrict you from reading the note <br>. Read the widget thoroughly before continuing!"," hint"," You are doing a great job <%= current_user.username %> ! Only " +no_rockets+ " left to be rescued!"];
- //$('.bubble').innerHTML=msg[1];
 
   $('.bubble').fadeIn(function(){
     if(msg_no!=3)
@@ -391,50 +399,51 @@ Q.Sprite.extend("Rocket",{
     this.on("bump.left,bump.right,bump.top",function(collision){ 
   if(collision.obj.isA("Player"))
   {   
-     
+
      switch(this.p.rocket_no) {
       case 1:
-           $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
-
+           $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 1} %>");
+           "<%= Play.find_or_create_by(:user_id => current_user.id , :note_id => @note.id , :current_level => 1) %>";
       break;
 
       case 2:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 2} %>");
-
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 2} %>");
+           "<%= Play.find_or_create_by(:user_id => current_user.id , :note_id => @note.id , :current_level => 2) %>";
       break;
 
       case 3:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 3} %>");
-
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 3} %>");
+             "<%= Play.find_or_create_by(:user_id => current_user.id , :note_id => @note.id , :current_level => 3) %>";
       break;
 
       case 4:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 4} %>");
-
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 4} %>");
+               "<%= Play.find_or_create_by(:user_id => current_user.id , :note_id => @note.id , :current_level => 4) %>";
       break;
 
       case 5:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 5} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 5} %>");
+             "<%= Play.find_or_create_by(:user_id => current_user.id , :note_id => @note.id , :current_level => 4) %>";
 
       break;
 
       case 6:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 6} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 6} %> <% alert = '1' %>") ;
 
       break;
 
       case 7:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 7} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 7} %>");
 
       break;
 
       case 8:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 8} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 8} %>");
 
       break;
 
       default:
-            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :locals => {:widget => 1} %>");
+            $("#loaderofstuff").html("<%= j render '/notes/partials/widgets/game_content_popup' , :params => {:level_load => 1} %>");
 
 
      }     

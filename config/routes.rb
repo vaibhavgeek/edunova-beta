@@ -29,6 +29,13 @@ devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_call
     get 'feeds/followers'
     get 'feeds/search_results' 
     get 'feeds/hall_of_fame'
+
+    resources :feeds do 
+      member do 
+        put 'follow_user'
+        put 'destroy_follow_user'
+      end
+    end
     resources :profiles do
         member do 
           put 'follow_user'

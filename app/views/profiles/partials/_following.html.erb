@@ -16,12 +16,17 @@
 					<table>
 					<tr>
 					<td valign="top">
-						
 
-					</td>
+	<%= image_tag fol.following.avatar.url(:thumb) , :class => 'img-circle' %>
+
+
+</td>
 					<td style="padding-left:10px;" valign="top">
 					
- 					
+ 						<% if fol.following.intrested_in != '' and fol.following.intrested_in != nil %>
+ 			<b>intrested_in: </b>
+			<%= fol.following.intrested_in %>
+		<% end %>
 	</td>
 </tr>
 </table>

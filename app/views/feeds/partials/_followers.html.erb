@@ -5,9 +5,6 @@
 
 <% end %>
 
-
-
-
 <% @allfollowers.in_groups_of(3, false).each do |group| %>
 
 
@@ -23,7 +20,7 @@
 <table>
 <tr>
 <td valign="top">
-<%= image_tag feed.user.avatar.url(:thumb) , :class => 'img-circle' %>
+<%= image_tag fol.following.avatar.url(:thumb) , :class => 'img-circle' %>
 
 </td>
 <td style="padding-left:10px;" valign="top">
