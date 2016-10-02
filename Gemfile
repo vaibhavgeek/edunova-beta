@@ -9,6 +9,7 @@ gem 'twitter-typeahead-rails'
 gem 'draper'	
 gem 'friendly_id'
 gem 'paperclip'
+
 #Used for friednly urls. It's pretty cool
 gem 'codemirror-rails'
 gem 'acts-as-taggable-on'		

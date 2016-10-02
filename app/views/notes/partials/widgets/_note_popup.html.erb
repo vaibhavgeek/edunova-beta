@@ -257,7 +257,12 @@ startGame();;
 </script>
         </body>
       </html>
-    "></iframe>
+          "></iframe>
+
+<% elsif @toload.set_type == 'video' %>
+<center>
+<%= youtube_embed(@toload.tag_one).html_safe %>
+</center>
 <% elsif @toload.set_type == 'question' %>
 
 <div class="col-md-8 col-md-offset-2 questions">

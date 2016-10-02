@@ -1,5 +1,5 @@
 
-<div class="col-md-4">
+<div style="border-left" class="col-md-4">
 <% if !current_user %>
 <div class="account-wall panel">
  <h1 class="text-center login-title">Sign in to continue to Edunova</h1>
@@ -44,7 +44,7 @@
 </div>
 
 <% else %>
-<div class="panel">
+<div class="panel panel-home" >
   <table style="width: 100%">
 <tr>
   <td>
@@ -77,8 +77,18 @@ hey! no notifications right now.
 <% end %>
 </div>
 <div class="col-md-8">
-<div class="panel"> 
+<div class="panel panel-home"> 
+<% if current_user %>
+<div class="alert alert-success"> 
+Welcome <b> <%= current_user.name %>  </b> <span class="pull-right">
 
+ <% if current_user.user_type == "tutor" %>  
+ Teacher Portal
+ <% else %>
+ Grade 9th
+ <% end %> </span>
+</div>
+<% end %>
 <div id="tag_cloud">
   <% tag_cloud Note.tag_counts, %w[s m l] do |tag, css_class| %>
     <%= link_to tag.name.to_s + "(" +tag.count.to_s + ")", tag_path(tag.name), class: css_class %>  &nbsp;&nbsp; 

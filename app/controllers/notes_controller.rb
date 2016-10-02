@@ -136,8 +136,7 @@ end
     updatefeed = Feed.new(:user_id => current_user.id , :object_id => @note.id  , :set_type => 'upvote')           
     updatefeed.save
     if current_user.id != @note.user_id
-    sendnotif = Notification.new(:to_id => User.find(@note.user_id) , :from_id => current_user , :read => 0 ,:category => 'UYN' , :note_id => @note.id )
-    sendnotif.save
+    sendnotif = Notification.find_or_create_by(:to_id => User.find(@note.user_id) , :from_id => current_user , :read => 0 ,:category => 'UYN' , :note_id => @note.id )
     end
   end
   

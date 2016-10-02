@@ -5,7 +5,8 @@
         <div class="media">
            <div class="media-left">
               
-                <%= attachment_image_tag(notif.from_id, :image, :fill, 50, 50 ,fallback: "deafult-pic-50.png") %>
+                <%= image_tag notif.from_id.avatar.url(:thumb) , :class => 'img-circle pull-right' %>
+
 
           </div>
            <div class="media-body">

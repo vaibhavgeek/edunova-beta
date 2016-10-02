@@ -1,0 +1,11 @@
+ 
+  <div class="widge-wrapper">
+    
+  <%= f.label :"Add Video" %>
+
+    <br/>
+    <%= f.text_field :tag_one , :class => "form-control" %>
+<%= f.text_field :set_type , :value => "video" , :style => "display:none;" %>  
+  <%= link_to_remove_association "Remove Video", f , {wrapper_class: 'widge-wrapper' ,  :class => 'btn btn-danger'} %>
+  <br/> <br/> 
+  </div>
