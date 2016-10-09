@@ -108,7 +108,7 @@ config.secret_key = '6cba3c175bc496f02e118798e0d6dd4d974c602c695a1d99cf945913a4d
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-   config.allow_unconfirmed_access_for = 30.days
+   config.allow_unconfirmed_access_for = 300.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
