@@ -78,17 +78,6 @@ hey! no notifications right now.
 </div>
 <div class="col-md-8">
 <div class="panel panel-home"> 
-<% if current_user %>
-<div class="alert alert-success"> 
-Welcome <b> <%= current_user.name %>  </b> <span class="pull-right">
-
- <% if current_user.user_type == "tutor" %>  
- Teacher Portal
- <% else %>
- Grade 9th
- <% end %> </span>
-</div>
-<% end %>
 <div id="tag_cloud">
   <% tag_cloud Note.tag_counts, %w[s m l] do |tag, css_class| %>
     <%= link_to tag.name.to_s + "(" +tag.count.to_s + ")", tag_path(tag.name), class: css_class %>  &nbsp;&nbsp; 

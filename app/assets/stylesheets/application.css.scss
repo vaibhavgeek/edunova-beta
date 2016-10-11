@@ -1,8 +1,11 @@
 @import "edunova_768.css.scss";
 @import "edunova_992.css.scss";
 @import "edunova_528.css.scss";
-@import "medium-editor.css";
 @import "codemirror.css";
+@import "medium-editor/dist/css/medium-editor";
+@import "medium-editor/dist/css/themes/beagle";
+@import "medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin";
+@import "medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin-frontend";
 @import "jotted.css";
 @import "default.css";
 @import "bootstrap-sprockets";

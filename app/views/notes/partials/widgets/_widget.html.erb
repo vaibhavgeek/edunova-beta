@@ -1,4 +1,6 @@
- 
+<script type="text/javascript">
+  
+</script> 
   <div class="widge-wrapper">
     
   <%= f.label :"Add Article" %>
@@ -9,24 +11,17 @@
   <%= link_to_remove_association "Remove Article", f , {wrapper_class: 'widge-wrapper' ,  :class => 'btn btn-danger'} %>
   <br/> <br/> 
   </div>
+  
 <script type="text/javascript">
-	var editor = new MediumEditor('.editable', {
-    toolbar: {
-        /* These are the default options for the toolbar,
-           if nothing is passed this is what is used */
-        allowMultiParagraphSelection: true,
-        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
-        diffLeft: 0,
-        diffTop: -10,
-        firstButtonClass: 'medium-editor-button-first',
-        lastButtonClass: 'medium-editor-button-last',
-        standardizeSelectionStart: false,
-        static: false,
-        relativeContainer: null,
-        /* options which only apply when static is true */
-        align: 'center',
-        sticky: false,
-        updateOnEmptySelection: false
-    }
+
+ var editor = new MediumEditor('.editable');
+
+$(function () {
+    $('.editable').mediumInsert({
+        editor: editor
+    });
 });
 </script>
+
+
+	

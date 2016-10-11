@@ -12,18 +12,31 @@
 //
 //= require jquery
 //= require bootstrap-sprockets
-//= require medium-editor
+
 //= require codemirror
 //= require jotted
 //= require codemirror/modes/xml
 //= require codemirror/modes/htmlmixed
 //= require codemirror/modes/javascript
+
 //= require jquery_ujs
 //= require turbolinks
 //= require cocoon
+
 //= require bootstrap-tokenfield
 //= require twitter/typeahead
+
 //= require bootstrap-typeahead-rails
+
+//= require medium-editor/dist/js/medium-editor
+//= require handlebars/handlebars.runtime.min.js
+//= require jquery-sortable/source/js/jquery-sortable-min.js
+//= require blueimp-file-upload/js/vendor/jquery.ui.widget.js
+//= require blueimp-file-upload/js/jquery.iframe-transport.js
+//= require blueimp-file-upload/js/jquery.fileupload.js
+//= require medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.min.js
+
+
 //= require quintus
 //= require quintus_2d
 //= require quintus_sprites

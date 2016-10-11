@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+
 gem 'bootstrap-typeahead-rails'
 # Used for having clean code for proper funtioning. 
 gem 'bootstrap-select-rails'
@@ -9,7 +10,7 @@ gem 'twitter-typeahead-rails'
 gem 'draper'	
 gem 'friendly_id'
 gem 'paperclip'
-
+gem 'bower-rails'
 #Used for friednly urls. It's pretty cool
 gem 'codemirror-rails'
 gem 'acts-as-taggable-on'		
