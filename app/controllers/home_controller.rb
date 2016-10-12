@@ -4,7 +4,11 @@ class HomeController < ApplicationController
 		@notifications = Notification.where(:to_id => current_user ).where.not(:from_id => current_user).order('created_at DESC').paginate(:per_page => 15, :page => params[:page_notif])	
 		@unread_count = @notifications.where(read: 0).count
 	end
-   @notes_filter = Note.all.paginate(:per_page => 15, :page => params[:page]).order('created_at DESC') 
+  if params[:tag]
+    @notes_filter = Note.tagged_with(params[:tag]).order('created_at DESC') 
+  else
+   @notes_filter = Note.all.where(:spam => 1).paginate(:per_page => 15, :page => params[:page]).order('created_at DESC') 
+  end
   end
   def mark_as_read
    @notifications = Notification.where(:to_id => current_user ).where.not(:from_id => current_user)

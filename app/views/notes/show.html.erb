@@ -48,10 +48,15 @@
  
   
 </div>
-
 <% if current_user %>
                   <div class="btn-group pull-right" id="voteapp">
+                  <% if @note.spam == true %>
+                  <span class="btn btn-success btn-sm"> <span class="glyphicon glyphicon-ok"> </span> This note is  vierified </span>
 
+<% else %>
+<span class="btn btn-danger btn-sm"> This note is not vierified </span>
+
+<% end %>
                 <% if current_user.voted_up_on?(@note) %> 
 
 

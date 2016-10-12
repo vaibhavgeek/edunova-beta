@@ -1,5 +1,4 @@
 //= require "jquery"
-
 //= require "jquery-sortable"
 //= require_directory "./examples/"
 

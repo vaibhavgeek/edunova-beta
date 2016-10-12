@@ -79,8 +79,8 @@ hey! no notifications right now.
 <div class="col-md-8">
 <div class="panel panel-home"> 
 <div id="tag_cloud">
-  <% tag_cloud Note.tag_counts, %w[s m l] do |tag, css_class| %>
-    <%= link_to tag.name.to_s + "(" +tag.count.to_s + ")", tag_path(tag.name), class: css_class %>  &nbsp;&nbsp; 
+  <% tag_cloud ActsAsTaggableOn::Tag.most_used(10), %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name.to_s + "(" +tag.taggings_count.to_s + ")", tag_path(tag.name), class: css_class %>  &nbsp;&nbsp; 
   <% end %>
 </div>
 <% @notes_filter.each do |note| %>

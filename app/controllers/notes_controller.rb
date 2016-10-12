@@ -43,8 +43,7 @@ def html_view
   
 end
 
-def display_widgets
- 
+def display_widgets 
   if params[:id]
   @note = Note.friendly.find(params[:id])
   else
