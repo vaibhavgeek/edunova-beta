@@ -3,8 +3,10 @@ Rails.application.configure do
 config.paperclip_defaults = {
   :storage => :s3,
   :s3_host_name => 's3.ap-south-1.amazonaws.com',
+  :s3_region => 'ap-south-1',
   :bucket => 'paperclip-edunova'
 }
+
 
 
   config.action_mailer.default_url_options = { :host => 'edunova.52fzb6kyar.ap-south-1.elasticbeanstalk.com' }

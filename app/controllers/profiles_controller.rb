@@ -81,11 +81,13 @@ class ProfilesController < ApplicationController
         @profile_feeds = Feed.joins('INNER JOIN  users 
         ON feeds.user_id = users.id').where(:set_type => 'comment' , :user_id => @user.id).order(:created_at => :desc)
   end 
+=begin 
    def played
      @user = User.friendly.find(params[:id])
         @profile_feeds = Feed.joins('INNER JOIN  users 
         ON feeds.user_id = users.id').where(:set_type => 'play' , :user_id => @user.id).order(:created_at => :desc)
   end 
+=end 
   def quizzed
      @user = User.friendly.find(params[:id])
         @profile_feeds = Feed.joins('INNER JOIN  users 

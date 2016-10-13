@@ -9,7 +9,6 @@ gem 'bootstrap_tokenfield_rails'
 gem 'twitter-typeahead-rails'
 gem 'draper'	
 gem 'friendly_id'
-gem 'paperclip'
 gem 'bower-rails'
 #Used for friednly urls. It's pretty cool
 gem 'codemirror-rails'
@@ -18,6 +17,8 @@ gem 'will_paginate', '~> 3.0.6'
 # Used for pagination, further script is needed for auto scroll
 gem 'annotate'
 gem 'aws-sdk'
+gem 'paperclip'
+
 gem 'acts_as_votable'
 # Used for annotating the files. Needs to be called after every migration.
 # This is used for OmniAuth along with devise
