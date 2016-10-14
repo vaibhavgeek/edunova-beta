@@ -91,6 +91,8 @@ end
 
   def edit
     @note = Note.friendly.find(params[:id])
+      @note.notewidgets.build 
+
     @array_levels = [*1..6].to_json
   end
 
