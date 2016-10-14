@@ -22,13 +22,6 @@ engine.initialize();
 $('#prerequisites').tokenfield({
   typeahead: [null, { displayKey: 'value', source: engine.ttAdapter() }]
 });
-$('#prerequisites').on('tokenfield:createtoken', function (event) {
-    var existingTokens = $(this).tokenfield('getTokens');
-    $.each(existingTokens, function(index, token) {
-        if (token.value === event.attrs.value)
-            event.preventDefault();
-    });
-  });
     
     
  
@@ -70,7 +63,6 @@ $('#prerequisites').on('tokenfield:createtoken', function (event) {
 
    
 </div>
-</div>
      
      
 
@@ -98,8 +90,6 @@ Add widget to Note:-    <br/> <br/>
 
 
         <%= naw.submit "Update Note" , {:class => 'btn btn-primary btn-lg pull-right'} %>
-
   <% end %>
- </div>
 
 
