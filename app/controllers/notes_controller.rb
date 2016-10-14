@@ -83,34 +83,18 @@ end
 
   def update
     @note = Note.friendly.find(params[:id])
-     @labels = note_params[:prereq].split(",")
-      @labels.each do |intr|
-        Intrest.find_or_create_by(value: intr.strip.to_s)
-      end  
-   @note.total_levels = note_params[:file].to_s.split('<hr>').count
-    if @note.total_levels <= 6
-             
-                 if @note.update(note_params)
-                   redirect_to :controller => 'notes', :action => 'show', :id => @note.id
-              end
-   end
+      @note.update(note_params)
+      @note.user_id = current_user.id 
+      note_params[:notewidgets_attributes][:note_id] = @note.id
+      redirect_to :controller => 'notes', :action => 'show', :id => @note.id         
+              
   end
 
 
   def edit
     @note = Note.friendly.find(params[:id])
-    @hash = AmazonSignature::data_hash    
-    if current_user.id == 51 || @note.user_id == current_user.id
-      @array_levels = [*1..6].to_json
-      @a,@b = "false"
-              if @note.description == 'insight'
-                @a = "true"
-              else
-                @b = "true"
-              end
-      else
-       redirect_to notes_my_notes_path
-      end
+    @note.notewidgets.build 
+    @array_levels = [*1..6].to_json
   end
 
 

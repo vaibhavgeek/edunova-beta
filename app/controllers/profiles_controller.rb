@@ -77,7 +77,7 @@ class ProfilesController < ApplicationController
         ON feeds.user_id = users.id').where(:set_type => 'create' , :user_id => @user.id).order(:created_at => :desc)
   end 
   def commented
-      @user = User.friendly.find(params[:id])
+     @user = User.friendly.find(params[:id])
         @profile_feeds = Feed.joins('INNER JOIN  users 
         ON feeds.user_id = users.id').where(:set_type => 'comment' , :user_id => @user.id).order(:created_at => :desc)
   end 
@@ -95,10 +95,10 @@ class ProfilesController < ApplicationController
  
   end
   def upvoted
-       @user = User.friendly.find(params[:id])
+    @user = User.friendly.find(params[:id])
         @profile_feeds = Feed.joins('INNER JOIN  users 
         ON feeds.user_id = users.id').where(:set_type => 'upvote' , :user_id => @user.id).order(:created_at => :desc)
-  end
+   end
   def all
       @user = User.friendly.find(params[:id])  
         @profile_feeds = Feed.joins('INNER JOIN  users 

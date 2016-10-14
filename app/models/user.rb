@@ -129,6 +129,23 @@ def self.from_omniauthg(access_token)
     end
 end
 
+def self.search_name(search)
+  if search
+    t = User.arel_table
+    User.where(t[:name].matches("%#{search}%"))
+  else
+    where(nil)
+  end
+end
 
+def self.search_username(search)
+  if search
+    search = search.to_s[1..-1]
+    t = User.arel_table
+    User.where(t[:username].matches("%#{search}%"))
+  else
+    where(nil)
+  end
+end
 
 end

@@ -1,11 +1,5 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-config.paperclip_defaults = {
-  :storage => :s3,
-  :s3_host_name => 's3.ap-south-1.amazonaws.com',
-  :s3_region => 'ap-south-1',
-  :bucket => 'paperclip-edunova'
-}
 
 
 
@@ -24,7 +18,7 @@ config.paperclip_defaults = {
   config.cache_classes = true
 
   # Eager load code on boot. This eager loads most of Rails and
-  # your application in memory, allowing both threaded web servers
+  # your application inf memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true

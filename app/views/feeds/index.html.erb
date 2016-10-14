@@ -1,12 +1,12 @@
-              <div class="row no-gutter panel eq-height">
+              <div class="row no-gutter eq-height">
 
- <div class="col-sm-3 col-md-3 border-right row-it-equal " id="right_section">
+ <div class="col-sm-3 col-md-3 panel panel-home border-right row-it-equal " id="right_section">
 
 
 <div class="panel-default  border-bottom" id="section_feeds">
  
 
-<%= form_tag "feeds_search_results_path", :method => 'get', :id => "people_search" , remote:true do %>
+<%= form_tag feeds_search_results_path, :method => 'get', :id => "people_search" , remote:true do %>
 
 
     <div class="input-group" style="padding-left:10px; padding-right:10px;">
@@ -82,7 +82,7 @@ Invite Friends
 
 </div> 
  <div class="col-sm-9 col-md-9">
-  <div class="panel-body" id="content">
+  <div class="panel-body panel" id="content">
     
 
         <%= render '/feeds/partials/newsfeed' %>

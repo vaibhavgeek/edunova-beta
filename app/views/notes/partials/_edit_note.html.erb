@@ -1,93 +1,42 @@
-<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
-    <div id="loadquestion" class="modal-content">
-      
-
-
-    </div>
-  </div>
-</div>
 
 <script type="text/javascript">
-var ready;
-ready = function() {
-
-  learnpam = $('#learnparams');
-  if("<%= @a %>".toString() == 'true')
-  {
-  learnpam.detach();
-  }
-
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
-function changetoinsight(){
-  learnpam.detach();
-};
-function changetolnote(){
+    var engine = new Bloodhound({
   
-  learnpam.appendTo('#coverlearn');
-};
-
-
-
-$('#myModal').on('show.bs.modal', function (event) {
-   
-
-  var j=1;
-  var raw_html =   $('#content-slide').froalaEditor('html.get');
-  var count = (raw_html.match(/<hr>/g) || []).length + 1;
-          
-  var modal = $(this);
- 
-  switch(count)
-  {
-    case 1:
-     modal.find("#loadquestion").html("<%= j render 'new_quiz' , :locals => { :level_count => 1 }  %>")
-    break;
-
-    case 2:
-     modal.find("#loadquestion").html("<%= j render 'new_quiz' , :locals => { :level_count => 2 }  %>")
-    break;
-
-    case 3:
-     modal.find("#loadquestion").html("<%= j render 'new_quiz' , :locals => { :level_count => 3 }  %>")
-    break;
-
-    case 4:
-     modal.find("#loadquestion").html("<%= j render 'new_quiz' , :locals => { :level_count => 4 }  %>")
-    break;
-
-    case 5:
-     modal.find("#loadquestion").html("<%= j render 'new_quiz' , :locals => { :level_count => 5 }  %>")
-    break;
-
-    case 6:
-     modal.find("#loadquestion").html("<%= j render 'new_quiz' , :locals => { :level_count => 6 }  %>")
-    break;
-
-    default:
+  datumTokenizer: function(d) {
+    return Bloodhound.tokenizers.obj.whitespace(d.name);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+   remote: {
+    url: '/profiles/intrests/%QUERY.json',
+     filter: function (engine) {
+            // Map the remote source JSON array to a JavaScript object array
+            return $.map(engine, function (intrest) {
+                return {
+                    value: intrest.name
+                };
+            });
+        }
   }
- 
 });
-
-
-  
-</script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+engine.initialize();
+$('#prerequisites').tokenfield({
+  typeahead: [null, { displayKey: 'value', source: engine.ttAdapter() }]
+});
+$('#prerequisites').on('tokenfield:createtoken', function (event) {
+    var existingTokens = $(this).tokenfield('getTokens');
+    $.each(existingTokens, function(index, token) {
+        if (token.value === event.attrs.value)
+            event.preventDefault();
+    });
+  });
     
-});
-$('[data-toggle="popover"]').popover({
-    container: 'body'
-});
+    
+ 
 </script>
-<center><h1>edit note: <%= @note.name %></h1></center>
 
  <%= form_for @note  do |naw| %>
-         
+         <center><h1>edit note: <%= @note.name %></h1></center>
+
 <div style="padding-left:15px; padding-right:15px;" class="row">
 <% if @note.errors.any? %>
     <div id="error_explanation" class="alert alert-error" >
@@ -108,189 +57,49 @@ $('[data-toggle="popover"]').popover({
          Note from author <br>
     <%= naw.text_area :note_from_author , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell users wether the note requires any prerequisites and what is purpose for creating this note." , :class => 'form-control' %>
               
-   <br/> Type of note : 
-<center>
-   <div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-default <%= 'active' if @a == 'true' %>">
-      <%= naw.radio_button :description, "insight" , :checked => @a, :id=>"first", :style=>"display:none;" , :onchange => 'changetoinsight()' %>
-
-    <input type="radio" name="options" id="option1" autocomplete="off"><i class="fa fa-bolt"></i>
-  Insight Note
-  </label>
-  <label class="btn btn-default <%= 'active' if @b == 'true' %>">
-     <%= naw.radio_button :description, "learning", :checked => @b , :id=>"first", :style=>"display:none;" , :onchange =>'changetolnote()' %>
-    <input type="radio" name="options" id="option2" autocomplete="off"  >  
-    <i class="glyphicon glyphicon-list-alt"> </i> Learning Note
-  </label>
-  <button class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" data-content="<b><i>Insight Note: </i></b><br/> These notes are simple ideas or exciting insights you want to share. You cannot create questions and neither the game is embedded. <br/> <br/> <b><i> Learning Note: </i> </b> <br/> These notes help you learn something properly. They have embedded questions to clear your concepts regarding the topic. ">
-     
-    <i class="fa fa-question-circle"></i>
-
-  </button>
-</div></center> <br/>
+    
     
               Labels <br>
 
-    <%= naw.text_field :prereq ,  :rows => "7" , :id => 'prerequisites' , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell the branch, this note belongs to. example maths, programming, history etc " %><br>
-            Content
-<br/>
-<center>
+    <%= naw.text_field :tag_list ,  :rows => "7" , :id => 'prerequisites' , :"data-toggle" => "tooltip" , :"data-html" => "true" , :"data-placement" => "left" , :title => "tell the branch, this note belongs to. example maths, programming, history etc " %>
+            
     
-</div>
-                       
 
-    </div> </center>
 
-<br/>
 
-<script type="text/javascript">
-var engine = new Bloodhound({
-  
-  datumTokenizer: function(d) {
-    return Bloodhound.tokenizers.obj.whitespace(d.value);
-  },
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-   remote: {
-    url: '/profiles/intrests/%QUERY.json',
-     filter: function (engine) {
-            // Map the remote source JSON array to a JavaScript object array
-            return $.map(engine, function (intrest) {
-                return {
-                    value: intrest.value
-                };
-            });
-        }
-  }
-
-});
-
-engine.initialize();
-$('#prerequisites').tokenfield({
-  typeahead: [null, { displayKey: 'value', source: engine.ttAdapter() }]
-});
-
-$('#prerequisites').on('tokenfield:createtoken', function (event) {
-    var existingTokens = $(this).tokenfield('getTokens');
-    $.each(existingTokens, function(index, token) {
-        if (token.value === event.attrs.value)
-            event.preventDefault();
-    });
-});
-</script>
 
    
 </div>
 </div>
      
-     <%= link_to "Open Library" , notes_openlibrary_path , :class => 'btn btn-success openlib' , :remote  => true %>
+     
 
 
-    <%= naw.text_area :file, :id=> 'content-slide'   %>
-       
-    <br/>
-  
-<div id="coverlearn">
-<div id="learnparams" class="btn-group"  role="group" aria-label="...">
 
-  <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
-Insert Quiz
-  </button>
+<div id="note-wrapper">
+<%= naw.fields_for :notewidgets do |builder| %>
 
-  <button type="button" class="btn btn-default btn-lg" id="new_level_button">
-Add Section
-  </button>
-</div>      
+        <%= render 'notes/partials/widgets/widget', f: builder %> <br/>
+
+<% end %> 
+
+
 </div>
-    <%= naw.text_field :questions , :id => 'store_questions' , :value => @note.questions  , :style => "display:none;"%>
-      
+Add widget to Note:-    <br/> <br/>   
+<ul class="nav nav-pills">
+ <li role="presentation">
+               <%= link_to_add_association 'Add Article', naw, :notewidgets  , :partial => 'notes/partials/widgets/widget' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+<li role="presentation">
+               <%= link_to_add_association 'Add Question', naw, :notewidgets  , :partial => 'notes/partials/widgets/exercise' , :'data-association-insertion-method' => 'append' , :'data-association-insertion-node' => '#note-wrapper' %>
+</li>
+</ul>
+    
 
-        <%= naw.submit "Save Note" , {:class => 'btn btn-primary btn-lg pull-right'} %>
+
+        <%= naw.submit "Update Note" , {:class => 'btn btn-primary btn-lg pull-right'} %>
 
   <% end %>
  </div>
 
 
-
-<script type="text/javascript">
-
-$(function() {
-$.FroalaEditor.DefineIcon('math_insert_drop', {NAME: 'maxcdn'});
-    $.FroalaEditor.RegisterCommand('math_insert_drop', {
-      title: 'Insert Maths',
-      type: 'dropdown',
-      focus: true,
-      undo: true,
-      refreshAfterCallback: true,
-      options: {
-        'eq': 'LaTeX Equation',
-        'inte': 'LaTeX Integral',
-        'frac' : 'LaTeX Fraction',
-        'quid' : 'LaTeX Guide' 
-      },
-      callback: function (cmd, val) {
-          switch(val.toString())
-          {
-            case 'eq':
-              $('#content-slide').froalaEditor('html.insert' , "$$ ax^2 + bx + c = 0 $$" , false);
-            break;
-
-            case 'inte':
-              $('#content-slide').froalaEditor('html.insert' , "$$ \\int(ax^2 + bx + c)dx $$ " , false);
-            break;
-
-            case 'frac':            
-              $('#content-slide').froalaEditor('html.insert' , "$$ {a+1\\over b+1} $$ " , false);
-            break;
-
-            case 'quid' :
-              window.open(url,'_blank');
-            break;
-
-            default:
-          }
-      }
-      // Callback on refre
-      // Callback on dropdown show.
-    });
-
-
-    $('#content-slide') 
-    .on('froalaEditor.initialized', function (e, editor) {
-        editor.events.bindClick($('body'), '#new_level_button', function () {
-          var raw_html =   $('#content-slide').froalaEditor('html.get');
-          var count = (raw_html.match(/<hr>/g) || []).length + 2;
-          if(count <= 6)
-          {
-                      editor.html.insert('<hr/> <br/>');
-          }
-          else
-          {
-                       alert('As of now you can only have 6 levels');
-
-          }
-        });
-      }).froalaEditor({
-      // Set custom buttons with separator between them.
-        heightMin: 400,
-      toolbarButtons: [ 'bold', 'italic', 'underline', 'fontFamily', 'fontSize' ,  'color' , 'strikethrough', 'subscript', 'superscript', 'outdent', 'indent', 'insertTable' , 'insertImage' , 'insertVideo' , '|','formatOL' ,'formatUL',  '|' , 'math_insert_drop' ,'|' , 'undo', 'redo'  ],
-      toolbarButtonsXS: ['undo', 'redo' , '-', 'bold', 'italic', 'underline'],
-                  imageUploadToS3: {
-             bucket: '<%= @hash[:bucket] %>',
-             region: 's3-us-west-2', // Change the region if it is different
-             keyStart: '<%= @hash[:key_start] %>',
-             callback: function (url, key) {
-            // console.log (url);
-            // console.log (key);
-             },
-             params: {
-             acl: '<%= @hash[:acl] %>',
-             AWSAccessKeyId: '<%= @hash[:access_key] %>',
-             policy: '<%= @hash[:policy] %>',
-             signature: '<%= @hash[:signature] %>',
-             }
-}
-    })
-  });
-
-
-</script>
