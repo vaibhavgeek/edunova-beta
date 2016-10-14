@@ -10,12 +10,6 @@
 
 <%- if devise_mapping.omniauthable? %>
  
-<center>
- <%= link_to omniauth_authorize_path(resource_name, 'facebook') , :class => 'btn btn-block btn-social btn-facebook' , :"data-no-turbolink" => 'true' do %>
-        Sign In with facebook <i class="fa fa-facebook"></i>
-   <% end %>
-</center> <br/>
-
           <center>
           <%= link_to omniauth_authorize_path(resource_name, 'google_oauth2') , :class => 'btn btn-block btn-social btn-google' , :"data-no-turbolink" => 'true' do %>
       Sign In with Google <i class="fa fa-google"></i>			  

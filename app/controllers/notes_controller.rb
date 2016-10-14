@@ -83,24 +83,23 @@ end
 
   def update
     @note = Note.friendly.find(params[:id])
-      @note.update(note_params)
-      @note.user_id = current_user.id 
-      note_params[:notewidgets_attributes][:note_id] = @note.id
-      redirect_to :controller => 'notes', :action => 'show', :id => @note.id         
+    @note.update_attributes(note_params)
+    redirect_to :controller => 'notes', :action => 'show', :id => @note.id         
               
   end
 
 
   def edit
     @note = Note.friendly.find(params[:id])
-    @note.notewidgets.build 
     @array_levels = [*1..6].to_json
   end
 
 
   def show
    @note = Note.friendly.find(params[:id])
-
+@widgets  = @note.notewidgets
+  @cnt = 0
+  
   end
 
 

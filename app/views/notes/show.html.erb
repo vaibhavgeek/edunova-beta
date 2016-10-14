@@ -147,24 +147,7 @@
     </div>
 </div>
 <div id='start_game' style="margin:30px;">
- <center>
- <p> Your mission is about to begin . Are you thrilled to take up this adventure ?<p>
- <div class="row">
-     <div class="col-sm-6 well" style="cursor:pointer;" onclick="load_game()">
-     <%= image_tag('rocket-animation.gif',:width=>'250px' ,:style=>'border-radius:20%') %><br>
-            <button type="button" class="btn btn-default btn-lg" >
-              <span class="glyphicon glyphicon-play-circle"></span> Play Note
-            </button>
-      </div>
-
-      
-      <%= link_to note_html_view_path(@note) , remote: :true , class: "well col-sm-6" do %>
-      <%= image_tag('read.gif',:width=>'250px' ,:style=>'border-radius:20%') %><br>
-      <button type="button" class="btn btn-default btn-lg">
-     <span class="glyphicon glyphicon glyphicon-file" aria-hidden="true"></span> View Note  
-    </button><% end %>
-      </center>
-    </div>
+<%=  render("/notes/partials/html_view") %>    </div>
     
 <div id='b' class='panel col-sm-7'> 
  <div id="loaderofstuff">
